@@ -9,19 +9,28 @@ const useStylesHeader = makeStyles({
     }
 })
 
-function Header ({saveTodo}) {
+function Header ({addTodo}) {
     const classesHeader = useStylesHeader()
     const [value, setValue] = useState('')
+    const [idNum, setIdNum] = useState(1)
+    
     return (
         <div>
             <Box display ='flex' justifyContent = 'center' m = {1} p = {1}>
                 <form  className = {classesHeader.root} 
                 onSubmit = {event => 
                     {event.preventDefault(); 
-                    saveTodo(value)}}>
+                    }}>
                     <TextField fullWidth id="outlined-basic" label="To Do:" variant="outlined" 
                         onChange = {event => {setValue(event.target.value)}}
-                        value = {value} />
+                        value = {value}
+                        onKeyDown = {event => {
+                            if(event.key === 'Enter'){
+                                addTodo({text: value, id: idNum, date: new Date().toLocaleString(), checked: false})
+                                setIdNum (idNum + 1) 
+                                setValue('')
+                            }
+                        }} />
                 </form>
             </Box>    
          </div>   

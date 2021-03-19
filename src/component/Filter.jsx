@@ -13,8 +13,13 @@ const useStylesFilter = makeStyles({
     }
 }) 
 
-function Filter () {
+function Filter ({sortByDate }) {
     const classesFilter = useStylesFilter()
+
+    // const sortUp = () => todos.sort((a, b) => b.date - a.date)
+    // const sortDown = () => todos.sort((a, b) => a.date - b.date)
+    // const sortTodoByDate = () => todos.sort(stateDate ? sortUp : sortDown)
+
     return (
         <div className = {classesFilter.root}>
             <Box display = 'flex' justifyContent = 'flex-start' justifyContent = 'space-between' m = {1} p = {1}>
@@ -31,10 +36,10 @@ function Filter () {
                     </Box>
                 <Box display = 'inline-flex' alignItems = 'center' justifyContent = 'flex-end'>
                     <p>Sort by Date:</p>
-                    <IconButton edge = 'end' aria-label = 'sortUp'>
+                    <IconButton edge = 'end' aria-label = 'sortUp' onClick = {() => sortByDate(false)}>
                         <ArrowUpwardIcon />
                     </IconButton>
-                    <IconButton  aria-label = 'sortDown'>
+                    <IconButton  aria-label = 'sortDown' onClick = {() => sortByDate(true)} >
                         <ArrowDownwardIcon />
                     </IconButton>
                 </Box>    
