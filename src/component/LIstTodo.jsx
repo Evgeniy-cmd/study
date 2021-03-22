@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-function ListTodo({todos, deleteTodo, checkedTodo, stateDate}){
+function ListTodo({todos, deleteTodo, checkedTodo, stateDate, page, view, changeTaskText}){
     const classesItem = useStyles()
     
     const sortUp = (a, b) => {
@@ -26,20 +26,35 @@ function ListTodo({todos, deleteTodo, checkedTodo, stateDate}){
       else if(a.date < b.date) return -1
       else if(a.date === b.date) return 0
      }
+
+     const selectViewTodos = (todos) => {
+      switch (view) {
+        case "All":
+          return todos;
+        case "Done":
+          return todos.filter(el => el.checked);
+        case "Undone":
+          return todos.filter(el => !el.checked);
+        default:
+          return [];
+      }
+    }
+
     const sortByDate = () =>{
-      return todos.sort(stateDate ? sortUp : sortDown)
+      return selectViewTodos(todos.sort(stateDate ? sortUp : sortDown))
     } 
 
+
+
     const renderItem  = () =>{
-        
-        return sortByDate().map(todo => <Item key = {todo.id} todo = {todo} deleteTodo={deleteTodo} checkedTodo={checkedTodo}/>)
+        return sortByDate().filter((_,index)=> (index >= (page * 5))&&(index < (page * 5) + 5)).map(todo => <Item key = {todo.id} todo = {todo} deleteTodo={deleteTodo} checkedTodo={checkedTodo} changeTaskText = {changeTaskText}/>)
     }
+    
+    
 
     return(
             <List className = {classesItem.root}>
-                {
-                     renderItem()
-                }
+                {renderItem()}
             </List>
     )
 }

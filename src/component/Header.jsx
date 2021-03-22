@@ -26,11 +26,14 @@ function Header ({addTodo}) {
                         value = {value}
                         onKeyDown = {event => {
                             if(event.key === 'Enter'){
-                                addTodo({text: value, id: idNum, date: new Date().toLocaleString(), checked: false})
-                                setIdNum (idNum + 1) 
-                                setValue('')
-                            }
-                        }} />
+                                if (event.target.value.trim() === ''){
+                                    alert('Input your task!')
+                                } else {
+                                    addTodo({text: value, id: idNum, date: new Date().toLocaleString(), checked: false})
+                                    setIdNum (idNum + 1) 
+                                    setValue('')
+                                        }}
+                                    }} />
                 </form>
             </Box>    
          </div>   

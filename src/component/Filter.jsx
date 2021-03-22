@@ -13,25 +13,20 @@ const useStylesFilter = makeStyles({
     }
 }) 
 
-function Filter ({sortByDate }) {
+function Filter ({sortByDate, setView }) {
     const classesFilter = useStylesFilter()
-
-    // const sortUp = () => todos.sort((a, b) => b.date - a.date)
-    // const sortDown = () => todos.sort((a, b) => a.date - b.date)
-    // const sortTodoByDate = () => todos.sort(stateDate ? sortUp : sortDown)
-
     return (
         <div className = {classesFilter.root}>
-            <Box display = 'flex' justifyContent = 'flex-start' justifyContent = 'space-between' m = {1} p = {1}>
+            <Box display = 'flex' justifyContent = 'space-between' m = {1} p = {1}>
                    <Box display = 'flex'>
                     <Box p = {1}>
-                        <Button variant="contained">All Tasks</Button>
+                        <Button variant="contained" onClick={() => setView('All')}>All Tasks</Button>
                     </Box>
                     <Box p = {1}>
-                        <Button variant="contained" color="primary">Done Tasks</Button>
+                        <Button variant="contained" color="primary" onClick={() => setView('Done')}>Done Tasks</Button>
                     </Box> 
                     <Box p = {1}>
-                        <Button variant="contained" color="secondary">Undone Tasks</Button>
+                        <Button variant="contained" color="secondary" onClick={() => setView('Undone')}>Undone Tasks</Button>
                     </Box>
                     </Box>
                 <Box display = 'inline-flex' alignItems = 'center' justifyContent = 'flex-end'>
