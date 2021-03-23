@@ -13,18 +13,18 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-function ListTodo({todos, deleteTodo, checkedTodo, stateDate, page, view, changeTaskText}){
+function ListTodo({todos, deleteTodo, doneTodo, stateCreatedAt, page, view, changeTaskName}){
     const classesItem = useStyles()
     
     const sortUp = (a, b) => {
-      if(a.date < b.date) return 1
-      else if(a.date > b.date) return -1
-      else if(a.date === b.date) return 0
+      if(a.createdAt < b.createdAt) return 1
+      else if(a.createdAt > b.createdAt) return -1
+      else if(a.createdAt === b.createdAt) return 0
     }
     const sortDown = (a, b) => {
-      if(a.date > b.date) return 1
-      else if(a.date < b.date) return -1
-      else if(a.date === b.date) return 0
+      if(a.createdAt > b.createdAt) return 1
+      else if(a.createdAt < b.createdAt) return -1
+      else if(a.createdAt === b.createdAt) return 0
      }
 
      const selectViewTodos = (todos) => {
@@ -32,22 +32,22 @@ function ListTodo({todos, deleteTodo, checkedTodo, stateDate, page, view, change
         case "All":
           return todos;
         case "Done":
-          return todos.filter(el => el.checked);
+          return todos.filter(item => item.done);
         case "Undone":
-          return todos.filter(el => !el.checked);
+          return todos.filter(item => !item.done);
         default:
           return [];
       }
     }
 
-    const sortByDate = () =>{
-      return selectViewTodos(todos.sort(stateDate ? sortUp : sortDown))
+    const sortByCreatedAt = () =>{
+      return selectViewTodos(todos.sort(stateCreatedAt ? sortUp : sortDown))
     } 
 
 
 
     const renderItem  = () =>{
-        return sortByDate().filter((_,index)=> (index >= (page * 5))&&(index < (page * 5) + 5)).map(todo => <Item key = {todo.id} todo = {todo} deleteTodo={deleteTodo} checkedTodo={checkedTodo} changeTaskText = {changeTaskText}/>)
+        return sortByCreatedAt().filter((_,index)=> (index >= (page * 5))&&(index < (page * 5) + 5)).map(todo => <Item key = {todo.uuid} todo = {todo} deleteTodo={deleteTodo} doneTodo={doneTodo} changeTaskName = {changeTaskName}/>)
     }
     
     

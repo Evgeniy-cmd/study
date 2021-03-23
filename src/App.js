@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Header from './component/Header'
 import Filter from './component/Filter'
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles'
 import ListTodo from './component/LIstTodo'
 import Pagination from './component/Pagination'
+import {addTask, deleteTask, getTask, checkTask, newTask} from './userAPI'
 
 const useStyleApp = makeStyles({
   root: {
@@ -16,27 +17,47 @@ const useStyleApp = makeStyles({
 export default function App() {
   const classesApp = useStyleApp()
   const [todos, setTodos] = useState([])
-  const [stateDate, setStateDate] = useState(false)
+  const [stateCreatedAt, setStateCreatedAt] = useState(false)
   const [view, setView] = useState('All')
   const [pages, setPage] = useState(0)
 
-  function addTodo (value) {
-    setTodos([...todos, value]) 
+  useEffect (async() =>  {
+    const responce = await getTask(2)
+    if(responce.status === 200) {
+      setTodos(responce.data)
+    }
+  }, [])
+
+  async function addNewTodo (newTodo) {
+    const responce = await newTask(2 , {name: newTodo.name, done: newTodo.done})
+      if(responce.status === 200){
+        setTodos([...todos, {
+        uuid: responce.data.uuid,
+        name: responce.data.name,
+        done: responce.data.done,
+        createdAt: responce.data.createdAt
+        }])
+        
+      }
   }
+  
+  // function addTodo (value) {
+  //   setTodos([...todos, value]) 
+  // }
 
   function deleteTodo (todoIndex) {
-    const newTodo = todos.filter((todo) => todo.id !== todoIndex)
+    const newTodo = todos.filter((todo) => todo.uuid !== todoIndex)
     setTodos(newTodo)
     if(pages >= newTodo.length/5) {
       setPage(pages-1)
     }
   }
 
-  function checkedTodo (idTodo) {
+  function doneTodo (uuidTodo) {
     setTodos (
       todos.filter(item => {
-        if (item.id === idTodo) {
-          item.checked = !item.checked
+        if (item.uuid === uuidTodo) {
+          item.done = !item.done
         }
         return item
       })
@@ -44,8 +65,8 @@ export default function App() {
     )
   }
 
-  function sortByDate (valueDate) {
-    setStateDate(valueDate)
+  function sortByCreatedAt (valueCreatedAt) {
+    setStateCreatedAt(valueCreatedAt)
   }
 
   function handlerChange (e, page) {
@@ -53,9 +74,9 @@ export default function App() {
     else setPage(page-1)
   }
   
-  function changeTaskText (value, id) {
+  function changeTaskName (value, uuid) {
     const newArray = todos.map(item => {
-      if(item.id === id){
+      if(item.uuid === uuid){
         item.title = value
       } return newArray
     })}  
@@ -65,9 +86,9 @@ export default function App() {
       <Box display= 'flex' justifyContent = 'center' m = {1}>
         <h1>My ToDo List</h1>
       </Box>
-        <Header  addTodo = {addTodo} />
-        <Filter sortByDate = {sortByDate} setView={setView} />
-        <ListTodo todos = {todos} deleteTodo ={deleteTodo} checkedTodo={checkedTodo} stateDate = {stateDate} page = {pages} view={view} changeTaskTitle = {changeTaskText} />
+        <Header  addTodo = {addNewTodo} />
+        <Filter sortByCreatedAt = {sortByCreatedAt} setView={setView} />
+        <ListTodo todos = {todos} deleteTodo ={deleteTodo} doneTodo={doneTodo} stateCreatedAt = {stateCreatedAt} page = {pages} view={view} changeTaskTitle = {changeTaskName} />
         <Pagination todos = {todos} handlerChange = {handlerChange}  />
     </div>
   )

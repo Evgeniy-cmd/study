@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-export const newTask = async(userId) => {
+export const newTask = async(userId, keys) => {
     try {
-        return await axios.post(`https://todo-api-learning.herokuapp.com/v1/task/${userId}`)
+        return await axios.post(`https://todo-api-learning.herokuapp.com/v1/task/${userId}`, keys)
     }
     catch(error) {
         console.log(error)
@@ -18,9 +18,9 @@ export const getTask = async(userId) => {
     }
 }
 
-export const checkedTask = async(userId, uuid) => {
+export const doneTask = async(userId, uuid, keys) => {
     try{
-        return await axios.patch(`https://todo-api-learning.herokuapp.com/v1/task/${userId}/${uuid}`)
+        return await axios.patch(`https://todo-api-learning.herokuapp.com/v1/task/${userId}/${uuid}`, keys)
     }
     catch(error) {
         console.log(error)

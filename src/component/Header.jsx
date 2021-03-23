@@ -29,7 +29,7 @@ function Header ({addTodo}) {
                                 if (event.target.value.trim() === ''){
                                     alert('Input your task!')
                                 } else {
-                                    addTodo({text: value, id: idNum, date: new Date().toLocaleString(), checked: false})
+                                    addTodo({name: value, done: false})
                                     setIdNum (idNum + 1) 
                                     setValue('')
                                         }}

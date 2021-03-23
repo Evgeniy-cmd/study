@@ -14,9 +14,9 @@ const useStylesHeader = makeStyles({
   }
 })
 
-function Item({todo, deleteTodo, checkedTodo, changeTaskText}) {
+function Item({todo, deleteTodo, doneTodo, changeTaskName}) {
   const classesTextField = useStylesHeader()
-  const [taskText, setTaskText] = useState(todo.text)
+  const [taskName, setTaskName] = useState(todo.name)
 
         return (
           <ListItem role={undefined} dense button>
@@ -25,21 +25,21 @@ function Item({todo, deleteTodo, checkedTodo, changeTaskText}) {
                 edge="start"
                 tabIndex={-1}
                 disableRipple
-                checked = {todo.checked}
+                checked = {todo.done}
                 onChange = {() => {
-                  checkedTodo(todo.id)             
+                  doneTodo(todo.uuid)             
                 } }
               />
             </ListItemIcon>
               <TextField
               className = {classesTextField.root} 
               id="standard-basic" 
-              value = {taskText} 
-              onChange = {event => {setTaskText(event.target.value)}}
+              value = {taskName} 
+              onChange = {event => {setTaskName(event.target.value)}}
               />
-            <p>{todo.date}</p>
+            <p>{todo.createdAt}</p>
             <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="delete" onClick = {() => deleteTodo(todo.id)}>
+              <IconButton edge="end" aria-label="delete" onClick = {() => deleteTodo(todo.uuid)}>
                 <DeleteIcon />
               </IconButton>
             </ListItemSecondaryAction>

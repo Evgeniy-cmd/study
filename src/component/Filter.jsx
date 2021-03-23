@@ -13,7 +13,7 @@ const useStylesFilter = makeStyles({
     }
 }) 
 
-function Filter ({sortByDate, setView }) {
+function Filter ({sortByCreatedAt, setView }) {
     const classesFilter = useStylesFilter()
     return (
         <div className = {classesFilter.root}>
@@ -31,10 +31,10 @@ function Filter ({sortByDate, setView }) {
                     </Box>
                 <Box display = 'inline-flex' alignItems = 'center' justifyContent = 'flex-end'>
                     <p>Sort by Date:</p>
-                    <IconButton edge = 'end' aria-label = 'sortUp' onClick = {() => sortByDate(false)}>
+                    <IconButton edge = 'end' aria-label = 'sortUp' onClick = {() => sortByCreatedAt(false)}>
                         <ArrowUpwardIcon />
                     </IconButton>
-                    <IconButton  aria-label = 'sortDown' onClick = {() => sortByDate(true)} >
+                    <IconButton  aria-label = 'sortDown' onClick = {() => sortByCreatedAt(true)} >
                         <ArrowDownwardIcon />
                     </IconButton>
                 </Box>    
