@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles'
 import ListTodo from './component/LIstTodo'
 import Pagination from './component/Pagination'
-import {addTask, deleteTask, getTask, checkTask, newTask} from './userAPI'
+import {addTask, deleteTask, getTask, checkTask, newTask, doneTask} from './userAPI'
 
 const useStyleApp = makeStyles({
   root: {
@@ -41,11 +41,8 @@ export default function App() {
       }
   }
   
-  // function addTodo (value) {
-  //   setTodos([...todos, value]) 
-  // }
-
-  function deleteTodo (todoIndex) {
+  async function deleteTodo (todoIndex) {
+    const responce = await deleteTask(2, todoIndex)
     const newTodo = todos.filter((todo) => todo.uuid !== todoIndex)
     setTodos(newTodo)
     if(pages >= newTodo.length/5) {
@@ -53,11 +50,14 @@ export default function App() {
     }
   }
 
-  function doneTodo (uuidTodo) {
+  async function doneTodo (uuidTodo) {
+    const checked = todos.find(item => item.uuid === uuidTodo)
+    const responce = await doneTask(2, uuidTodo, {done: !checked.done})
+    console.log(responce)
     setTodos (
       todos.filter(item => {
         if (item.uuid === uuidTodo) {
-          item.done = !item.done
+          item.done = responce.data.done
         }
         return item
       })
@@ -74,7 +74,7 @@ export default function App() {
     else setPage(page-1)
   }
   
-  function changeTaskName (value, uuid) {
+ function changeTaskName (value, uuid) {
     const newArray = todos.map(item => {
       if(item.uuid === uuid){
         item.title = value
