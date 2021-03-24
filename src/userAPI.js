@@ -1,37 +1,29 @@
 import axios from 'axios'
 
+
 export const newTask = async(userId, keys) => {
-    try {
-        return await axios.post(`https://todo-api-learning.herokuapp.com/v1/task/${userId}`, keys)
-    }
-    catch(error) {
-        console.log(error)
-    }       
+    return await axios.post(`https://todo-api-learning.herokuapp.com/v1/task/${userId}`, keys)    
 }    
 
 export const getTask = async(userId) => {
-    try {
-        return await axios.get(`https://todo-api-learning.herokuapp.com/v1/tasks/${userId}`)
-    }
-    catch(error) {
-        console.log(error)
-    }
+    return await axios.get(`https://todo-api-learning.herokuapp.com/v1/tasks/${userId}`)
 }
 
 export const doneTask = async(userId, uuid, keys) => {
-    try{
-        return await axios.patch(`https://todo-api-learning.herokuapp.com/v1/task/${userId}/${uuid}`, keys)
-    }
-    catch(error) {
-        console.log(error)
-    }
+    return await axios.patch(`https://todo-api-learning.herokuapp.com/v1/task/${userId}/${uuid}`, keys)  
 }
 
 export const deleteTask = async(userId, uuid) => {
-    try {
-        return await axios.delete(`https://todo-api-learning.herokuapp.com/v1/task/${userId}/${uuid}`)
-    }
-    catch(error) {
-        console.log(error)
-    }
+      return await axios.delete(`https://todo-api-learning.herokuapp.com/v1/task/${userId}/${uuid}`)  
 }
+
+axios.interceptors.response.use((response) => {
+    if(response.status !== 200 && response.status !== 204){
+       return alert(`Error: ${response.status}`)
+    }
+    return response
+  }, 
+  error => {
+    return error
+  })
+  

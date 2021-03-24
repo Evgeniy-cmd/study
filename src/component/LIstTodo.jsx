@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ListTodo({todos, deleteTodo, doneTodo, stateCreatedAt, page, view, changeTaskName}){
     const classesItem = useStyles()
-    console.log(todos)
     const sortUp = (a, b) => {
       if(a.createdAt < b.createdAt) return 1
       else if(a.createdAt > b.createdAt) return -1
