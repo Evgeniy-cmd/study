@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ListTodo({todos, deleteTodo, doneTodo, stateCreatedAt, page, view, changeTaskName}){
     const classesItem = useStyles()
-    
+    console.log(todos)
     const sortUp = (a, b) => {
       if(a.createdAt < b.createdAt) return 1
       else if(a.createdAt > b.createdAt) return -1
@@ -47,7 +47,14 @@ function ListTodo({todos, deleteTodo, doneTodo, stateCreatedAt, page, view, chan
 
 
     const renderItem  = () =>{
-        return sortByCreatedAt().filter((_,index)=> (index >= (page * 5))&&(index < (page * 5) + 5)).map(todo => <Item key = {todo.uuid} todo = {todo} deleteTodo={deleteTodo} doneTodo={doneTodo} changeTaskName = {changeTaskName}/>)
+        return sortByCreatedAt().filter((_,index)=> (index >= (page * 5))&&(index < (page * 5) + 5)).map(todo => 
+        <Item 
+        key = {todo.uuid} 
+        todo = {todo} 
+        deleteTodo={deleteTodo} 
+        doneTodo={doneTodo} 
+        changeTaskName = {changeTaskName}
+        />)
     }
     
     

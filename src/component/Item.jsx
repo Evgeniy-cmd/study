@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -17,6 +17,10 @@ const useStylesHeader = makeStyles({
 function Item({todo, deleteTodo, doneTodo, changeTaskName}) {
   const classesTextField = useStylesHeader()
   const [taskName, setTaskName] = useState(todo.name)
+
+  useEffect(() =>{
+    changeTaskName(taskName, todo.uuid)
+  },[taskName])
 
         return (
           <ListItem role={undefined} dense button>

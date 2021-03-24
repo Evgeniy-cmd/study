@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles'
 import ListTodo from './component/LIstTodo'
 import Pagination from './component/Pagination'
-import {addTask, deleteTask, getTask, checkTask, newTask, doneTask} from './userAPI'
+import {deleteTask, getTask, newTask, doneTask} from './userAPI'
 
 const useStyleApp = makeStyles({
   root: {
@@ -21,28 +21,24 @@ export default function App() {
   const [view, setView] = useState('All')
   const [pages, setPage] = useState(0)
 
-  useEffect (async() =>  {
+  useEffect (() =>  {
+    async function func(){
     const responce = await getTask(2)
     if(responce.status === 200) {
       setTodos(responce.data)
-    }
+    }}
   }, [])
 
   async function addNewTodo (newTodo) {
     const responce = await newTask(2 , {name: newTodo.name, done: newTodo.done})
       if(responce.status === 200){
         setTodos([...todos, {
-        uuid: responce.data.uuid,
-        name: responce.data.name,
-        done: responce.data.done,
-        createdAt: responce.data.createdAt
-        }])
-        
-      }
+        ...responce.data}])
+        }
   }
   
   async function deleteTodo (todoIndex) {
-    const responce = await deleteTask(2, todoIndex)
+    await deleteTask(2, todoIndex)
     const newTodo = todos.filter((todo) => todo.uuid !== todoIndex)
     setTodos(newTodo)
     if(pages >= newTodo.length/5) {
@@ -53,7 +49,6 @@ export default function App() {
   async function doneTodo (uuidTodo) {
     const checked = todos.find(item => item.uuid === uuidTodo)
     const responce = await doneTask(2, uuidTodo, {done: !checked.done})
-    console.log(responce)
     setTodos (
       todos.filter(item => {
         if (item.uuid === uuidTodo) {
@@ -74,12 +69,13 @@ export default function App() {
     else setPage(page-1)
   }
   
- function changeTaskName (value, uuid) {
-    const newArray = todos.map(item => {
-      if(item.uuid === uuid){
-        item.title = value
-      } return newArray
-    })}  
+  async function changeTaskName (value, id) {
+    await doneTask(2, id, {name: value})
+    setTodos(todos.map(item => {
+      if(item.uuid === id){
+        item.name = value
+      } return item
+    }))}  
  
   return (
     <div className = {classesApp.root}>
@@ -88,7 +84,7 @@ export default function App() {
       </Box>
         <Header  addTodo = {addNewTodo} />
         <Filter sortByCreatedAt = {sortByCreatedAt} setView={setView} />
-        <ListTodo todos = {todos} deleteTodo ={deleteTodo} doneTodo={doneTodo} stateCreatedAt = {stateCreatedAt} page = {pages} view={view} changeTaskTitle = {changeTaskName} />
+        <ListTodo todos = {todos} deleteTodo ={deleteTodo} doneTodo={doneTodo} stateCreatedAt = {stateCreatedAt} page = {pages} view={view} changeTaskName = {changeTaskName} />
         <Pagination todos = {todos} handlerChange = {handlerChange}  />
     </div>
   )
