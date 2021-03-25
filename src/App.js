@@ -83,9 +83,7 @@ export default function App() {
     }))}   
   }
 
-  function newError (error) {
-    
-  }
+
   
   return (
     <div className = {classesApp.root}>
@@ -96,7 +94,7 @@ export default function App() {
         <Filter sortByCreatedAt = {sortByCreatedAt} setView={setView} />
         <ListTodo todos = {todos} deleteTodo ={deleteTodo} doneTodo={doneTodo} stateCreatedAt = {stateCreatedAt} page = {pages} view={view} changeTaskName = {changeTaskName} />
         <Pagination todos = {todos} handlerChange = {handlerChange}  />
-        <AlertError error = {error} newError = {newError} />
+        <AlertError error = {error} />
     </div>
   )
   }
