@@ -33,7 +33,7 @@ export default function App() {
   func()}, [])
 
   async function addNewTodo (newTodo) {
-    const response = await newTask(2 , {name: newTodo.name, done: newTodo.done})
+    const response = await newTask({name: newTodo.name, done: newTodo.done})
       if(response.status === 200){
         setTodos([...todos, {
         ...response.data}])
@@ -41,21 +41,21 @@ export default function App() {
         setError(response.message)
   }
   
-  async function deleteTodo (todoIndex) {
-    await deleteTask(2, todoIndex)
-    setTodos(todos.filter((todo) => todo.uuid !== todoIndex))
+  async function deleteTodo (uuid) {
+    await deleteTask(uuid)
+    setTodos(todos.filter((todo) => todo.uuid !== uuid))
     if(pages >= (todos.length - 1) / 5) {
       setPage(pages-1)
     }
   }
 
-  async function doneTodo (uuidTodo) {
-    const checked = todos.find(item => item.uuid === uuidTodo)
-    const response = await doneTask(2, uuidTodo, {done: !checked.done})
+  async function doneTodo (uuid) {
+    const checked = todos.find(item => item.uuid === uuid)
+    const response = await doneTask(uuid, {done: !checked.done})
     if(response.status === 200) {
     setTodos (
       todos.filter(item => {
-        if (item.uuid === uuidTodo) {
+        if (item.uuid === uuid) {
           item.done = response.data.done
         }
         return item
@@ -73,11 +73,11 @@ export default function App() {
     else setPage(page-1)
   }
 
-  async function changeTaskName (value, id) {
-    const response = await doneTask(2, id, {name: value})
+  async function changeTaskName (value, uuid) {
+    const response = await doneTask(uuid, {name: value})
     if(response.status === 200) {
     setTodos(todos.map(item => {
-      if(item.uuid === id){
+      if(item.uuid === uuid){
         item.name = value
       } return item
     }))}   
