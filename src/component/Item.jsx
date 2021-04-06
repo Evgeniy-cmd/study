@@ -22,14 +22,14 @@ function Item({todo, deleteTodo, doneTodo, changeTaskName}) {
   useEffect(() =>{
     changeTaskName(taskName, todo.uuid)
   },[taskName])
-  console.log(todo)
+  console.log(check)
         return (
           <ListItem role={undefined} dense button>
             <ListItemIcon>
               <Checkbox
                 edge="start"
                 checked = {check}
-                onChange = {(e) => {
+                onChange = {(event) => {
                   doneTodo(todo.uuid)
                   setCheck(!check)             
                 } }
