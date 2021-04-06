@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert'
 
 export default function AlertError({error}) {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   
 
   return (

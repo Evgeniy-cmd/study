@@ -12,7 +12,6 @@ const useStylesHeader = makeStyles({
 function Header ({addTodo}) {
     const classesHeader = useStylesHeader()
     const [value, setValue] = useState('')
-    const [idNum, setIdNum] = useState(1)
     
     return (
         <div>
@@ -30,7 +29,6 @@ function Header ({addTodo}) {
                                     alert('Input your task!')
                                 } else {
                                     addTodo({name: value, done: false})
-                                    setIdNum (idNum + 1) 
                                     setValue('')
                                         }}
                                     }} />
