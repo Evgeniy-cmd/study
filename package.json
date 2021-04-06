@@ -1,8 +1,8 @@
 {
-  "name": "my-app",
+  "name": "study",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://evgeniy-cmd.github.io/front-interaction-with-back",
+  "homepage": "https://evgeniy-cmd.github.io/study",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
@@ -19,6 +19,7 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
+    "clean" : "gh-pages-clean",
     "start": "react-scripts start",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
