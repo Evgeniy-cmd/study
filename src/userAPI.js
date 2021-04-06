@@ -1,20 +1,34 @@
 import axios from 'axios'
 
+const url = 'https://aqueous-cove-57786.herokuapp.com/api/'
 
-export const newTask = async(userId, keys) => {
-    return await axios.post(`https://aqueous-cove-57786.herokuapp.com/api/tasks`, keys)    
+const instance = axios.create(
+    {
+        baseURL: url,
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+)
+
+export const newTask = async(keys) => {
+    const responce = await instance.post('tasks', keys) 
+    return responce 
 }    
 
-export const getTask = async(userId) => {
-    return await axios.get(`https://aqueous-cove-57786.herokuapp.com/api/tasks`)
+export const getTask = async() => {
+    const responce = await instance.get(`tasks`)
+    return responce
 }
 
-export const doneTask = async(userId, uuid, keys) => {
-    return await axios.patch(`https://aqueous-cove-57786.herokuapp.com/api/tasks/${uuid}`, keys)  
+export const doneTask = async(uuid, keys) => {
+    const responce = await instance.patch(`tasks/${uuid}`, keys)  
+    return responce
 }
 
-export const deleteTask = async(userId, uuid) => {
-      return await axios.delete(`https://aqueous-cove-57786.herokuapp.com/api/tasks/${uuid}`)  
+export const deleteTask = async(uuid) => {
+      const responce = await instance.delete(`tasks/${uuid}`)  
+      return responce
 }
 
 axios.interceptors.response.use((response) => {
