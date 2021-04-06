@@ -25,7 +25,7 @@ export default function App() {
   
   useEffect (() =>  {
     async function func() {
-    const response = await getTask(2)
+    const response = await getTask()
     if(response.status === 200) {
       setTodos(response.data)
     } 
@@ -51,7 +51,7 @@ export default function App() {
 
   async function doneTodo (uuid) {
     const checked = todos.find(item => item.uuid === uuid)
-    const response = await doneTask(uuid, {done: !checked.done})
+    const response = await doneTask(uuid, {name: checked.name, done: !checked.done})
     if(response.status === 200) {
     setTodos (
       todos.filter(item => {

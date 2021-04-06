@@ -17,21 +17,21 @@ const useStylesHeader = makeStyles({
 function Item({todo, deleteTodo, doneTodo, changeTaskName}) {
   const classesTextField = useStylesHeader()
   const [taskName, setTaskName] = useState(todo.name)
+  const [check, setCheck] = useState(todo.done)
 
   useEffect(() =>{
     changeTaskName(taskName, todo.uuid)
   },[taskName])
-
+  console.log(todo)
         return (
           <ListItem role={undefined} dense button>
             <ListItemIcon>
               <Checkbox
                 edge="start"
-                tabIndex={-1}
-                disableRipple
-                checked = {todo.done}
-                onChange = {() => {
-                  doneTodo(todo.uuid)             
+                checked = {check}
+                onChange = {(e) => {
+                  doneTodo(todo.uuid)
+                  setCheck(!check)             
                 } }
               />
             </ListItemIcon>
