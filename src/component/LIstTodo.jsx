@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles'
 import Item from './Item'
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-function ListTodo({todos, deleteTodo, doneTodo, stateCreatedAt, page, view, changeTaskName}){
+function ListTodo({todos, deleteTodo, doneTodo, stateCreatedAt, page, view, changeTaskName, changeHandler}){
     const classesItem = useStyles()
     const sortUp = (a, b) => {
       if(a.createdAt < b.createdAt) return 1
@@ -29,30 +29,35 @@ function ListTodo({todos, deleteTodo, doneTodo, stateCreatedAt, page, view, chan
      const selectViewTodos = (todos) => {
       switch (view) {
         case "All":
-          return todos;
+          return todos
         case "Done":
-          return todos.filter(item => item.done);
+          todos.filter(item => item.done)
+          
+          return todos
         case "Undone":
-          return todos.filter(item => !item.done);
+          todos.filter(item => !item.done)
+
+          return todos
         default:
           return [];
-      }
-    }
-
-    const sortByCreatedAt = () =>{
+      } 
+    } 
+    console.log()
+    const sortByCreatedAt = () => {
       return selectViewTodos(todos.sort(stateCreatedAt ? sortUp : sortDown))
     } 
 
 
 
-    const renderItem  = () =>{
+    const renderItem  = () => {
         return sortByCreatedAt().filter((_,index)=> (index >= (page * 5))&&(index < (page * 5) + 5)).map(todo => 
         <Item 
         key = {todo.uuid} 
         todo = {todo} 
-        deleteTodo={deleteTodo} 
-        doneTodo={doneTodo} 
+        deleteTodo = {deleteTodo} 
+        doneTodo = {doneTodo} 
         changeTaskName = {changeTaskName}
+        changeHandler = {changeHandler}
         />)
     }
     

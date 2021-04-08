@@ -2,26 +2,20 @@ import React, {useState, useEffect} from 'react'
 import Header from './component/Header'
 import Filter from './component/Filter'
 import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles'
 import ListTodo from './component/LIstTodo'
 import Pagination from './component/Pagination'
 import {deleteTask, getTask, newTask, doneTask} from './userAPI'
 import AlertError from './AlertError'
 
-const useStyleApp = makeStyles({
-  root: {
-    // background: '#aa4b6b',
-    // background: 'linear-gradient(to left, #3b8d99, #6b6b83, #aa4b6b)'
-  }
-})
 
 export default function App() {
-  const classesApp = useStyleApp()
   const [todos, setTodos] = useState([])
   const [stateCreatedAt, setStateCreatedAt] = useState(false)
   const [view, setView] = useState('All')
-  const [pages, setPage] = useState(0)
+  const [page, setPage] = useState(0)
   const [error, setError] = useState('')
+  const [countTodos, setCountTodos] = useState(0)
+
   
   useEffect (() =>  {
     async function func() {
@@ -44,8 +38,8 @@ export default function App() {
   async function deleteTodo (uuid) {
     await deleteTask(uuid)
     setTodos(todos.filter((todo) => todo.uuid !== uuid))
-    if(pages >= (todos.length - 1) / 5) {
-      setPage(pages-1)
+    if(page >= (todos.length - 1) / 5) {
+      setPage(page-1)
     }
   }
 
@@ -75,6 +69,7 @@ export default function App() {
 
   async function changeTaskName (value, uuid) {
     const response = await doneTask(uuid, {name: value})
+    console.log(uuid)
     if(response.status === 200) {
     setTodos(todos.map(item => {
       if(item.uuid === uuid){
@@ -83,18 +78,30 @@ export default function App() {
     }))}   
   }
 
-
+  // function viewTodos (todos) {
+    
+  //   setCountTodos(Math.ceil(todos.length / 5))
+  // }
+  
   
   return (
-    <div className = {classesApp.root}>
-      <Box display= 'flex' justifyContent = 'center' m = {1}>
+    <div>
+      <Box display= 'flex' justifyContent = 'center' m = {1} p = {10}>
         <h1>My ToDo List</h1>
       </Box>
         <Header  addTodo = {addNewTodo} />
         <Filter sortByCreatedAt = {sortByCreatedAt} setView={setView} />
-        <ListTodo todos = {todos} deleteTodo ={deleteTodo} doneTodo={doneTodo} stateCreatedAt = {stateCreatedAt} page = {pages} view={view} changeTaskName = {changeTaskName} />
-        <Pagination todos = {todos} handlerChange = {handlerChange}  />
+        <ListTodo
+        todos = {todos}
+        deleteTodo ={deleteTodo}
+        doneTodo={doneTodo}
+        stateCreatedAt = {stateCreatedAt}
+        page = {page}
+        view = {view}
+        changeTaskName = {changeTaskName}
+        />
+        <Pagination todos = {todos} handlerChange = {handlerChange}  countTodos = {countTodos} />
         <AlertError error = {error} />
     </div>
   )
-  }
+}

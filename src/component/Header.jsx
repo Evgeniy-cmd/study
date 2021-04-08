@@ -26,7 +26,7 @@ function Header ({addTodo}) {
                         onKeyDown = {event => {
                             if(event.key === 'Enter'){
                                 if (event.target.value.trim() === ''){
-                                    alert('Input your task!')
+                                    alert('Input your task!') 
                                 } else {
                                     addTodo({name: value, done: false})
                                     setValue('')

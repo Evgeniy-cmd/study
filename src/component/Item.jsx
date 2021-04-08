@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -19,10 +19,17 @@ function Item({todo, deleteTodo, doneTodo, changeTaskName}) {
   const [taskName, setTaskName] = useState(todo.name)
   const [check, setCheck] = useState(todo.done)
 
-  useEffect(() =>{
-    changeTaskName(taskName, todo.uuid)
-  },[taskName])
-  console.log(check)
+  // const changeHandler = (event) => {
+  //   // console.log(event)
+  //   // if(event.key === 'Enter') { 
+  //   //   console.log(event.key)
+  //   // changeTaskName(taskName)
+  //   // }
+  //   //  else {
+  //   setTaskName(event.target.value)
+  //   // } 
+  // }
+      
         return (
           <ListItem role={undefined} dense button>
             <ListItemIcon>
@@ -39,7 +46,12 @@ function Item({todo, deleteTodo, doneTodo, changeTaskName}) {
               className = {classesTextField.root} 
               id="standard-basic" 
               value = {taskName} 
-              onChange = {event => {setTaskName(event.target.value)}}
+              onChange = {(event) => setTaskName(event.target.value)}
+              onKeyDown ={(event) => {
+                if(event.key === 'Enter') { 
+                  changeTaskName(taskName)
+                  } 
+              }}
               />
             <p>{todo.createdAt}</p>
             <ListItemSecondaryAction>

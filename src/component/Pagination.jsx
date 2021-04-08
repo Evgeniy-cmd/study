@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function PaginationRounded({todos, handlerChange}) {
+export default function PaginationRounded({todos, handlerChange, countTodos}) {
   const classes = useStyles();
 
     
@@ -20,7 +20,7 @@ export default function PaginationRounded({todos, handlerChange}) {
   return (
     <div className={classes.root}>
         <Box display = 'flex' justifyContent = 'center'>
-            <Pagination count = {Math.ceil(todos.length / 5)} variant="outlined" shape="rounded" onChange = {(handlerChange)} />
+            <Pagination count = {Math.ceil(todos.length / 5)} variant="outlined" shape="rounded" onChange = {(handlerChange)}  />
         </Box> 
     </div>
   );
