@@ -49,7 +49,7 @@ function Item({todo, deleteTodo, doneTodo, changeTaskName}) {
               onChange = {(event) => setTaskName(event.target.value)}
               onKeyDown ={(event) => {
                 if(event.key === 'Enter') { 
-                  changeTaskName(taskName)
+                  changeTaskName(taskName, todo.uuid)
                   } 
               }}
               />
