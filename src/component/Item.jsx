@@ -18,17 +18,6 @@ function Item({todo, deleteTodo, doneTodo, changeTaskName}) {
   const classesTextField = useStylesHeader()
   const [taskName, setTaskName] = useState(todo.name)
   const [check, setCheck] = useState(todo.done)
-
-  // const changeHandler = (event) => {
-  //   // console.log(event)
-  //   // if(event.key === 'Enter') { 
-  //   //   console.log(event.key)
-  //   // changeTaskName(taskName)
-  //   // }
-  //   //  else {
-  //   setTaskName(event.target.value)
-  //   // } 
-  // }
       
         return (
           <ListItem role={undefined} dense button>

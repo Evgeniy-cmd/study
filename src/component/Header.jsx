@@ -9,32 +9,34 @@ const useStylesHeader = makeStyles({
     }
 })
 
-function Header ({addTodo}) {
+function Header({ addTodo, setIsError, setErrMessage }) {
     const classesHeader = useStylesHeader()
     const [value, setValue] = useState('')
-    
+
     return (
         <div>
-            <Box display ='flex' justifyContent = 'center' m = {1} p = {1}>
-                <form  className = {classesHeader.root} 
-                onSubmit = {event => 
-                    {event.preventDefault(); 
+            <Box display='flex' justifyContent='center' m={1} p={1}>
+                <form className={classesHeader.root}
+                    onSubmit={event => {
+                        event.preventDefault();
                     }}>
-                    <TextField fullWidth id="outlined-basic" label="To Do:" variant="outlined" 
-                        onChange = {event => {setValue(event.target.value)}}
-                        value = {value}
-                        onKeyDown = {event => {
-                            if(event.key === 'Enter'){
-                                if (event.target.value.trim() === ''){
-                                    alert('Input your task!') 
-                                } else {
-                                    addTodo({name: value, done: false})
+                    <TextField fullWidth id="outlined-basic" label="To Do:" variant="outlined"
+                        onChange={event => { setValue(event.target.value) }}
+                        value={value}
+                        onKeyDown={event => {
+                            if (event.key === 'Enter') {
+                                if (event.target.value.trim() === '') {
+                                    alert('Input your task!')
+                                }
+                                else {
+                                    addTodo({ name: value, done: false })
                                     setValue('')
-                                        }}
-                                    }} />
+                                }
+                            }
+                        }} />
                 </form>
-            </Box>    
-         </div>   
+            </Box>
+        </div>
     )
 }
 

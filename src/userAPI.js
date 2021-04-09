@@ -11,33 +11,23 @@ const instance = axios.create(
     }
 )
 
-export const newTask = async(keys) => {
-    const responce = await instance.post('tasks', keys) 
-    return responce 
-}    
+export const newTask = async (keys) => {
+    const responce = await instance.post('tasks', keys)
+    return responce
+}
 
-export const getTask = async() => {
+export const getTask = async () => {
     const responce = await instance.get(`tasks`)
     return responce
 }
 
-export const doneTask = async(uuid, keys) => {
-    const responce = await instance.patch(`tasks/${uuid}`, keys)  
+export const doneTask = async (uuid, keys) => {
+    const responce = await instance.patch(`tasks/${uuid}`, keys)
     return responce
 }
 
-export const deleteTask = async(uuid) => {
-      const responce = await instance.delete(`tasks/${uuid}`)  
-      return responce
+export const deleteTask = async (uuid) => {
+    const responce = await instance.delete(`tasks/${uuid}`)
+    return responce
 }
 
-axios.interceptors.response.use((response) => {
-    if(response.status !== 200 && response.status !== 204){
-       return alert(`Error: ${response.status}`)
-    }
-    return response
-  }, 
-  error => {
-    return error
-  })
-  
