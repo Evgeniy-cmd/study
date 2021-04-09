@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles'
 import Item from './Item'
@@ -26,30 +26,29 @@ function ListTodo({todos, deleteTodo, doneTodo, stateCreatedAt, page, view, chan
       else if(a.createdAt === b.createdAt) return 0
      }
 
-     const selectViewTodos = (todos) => {
+     const selectViewTodos = (arr) => {
       switch (view) {
         case "All":
-          return todos
+          return arr 
         case "Done":
-          todos.filter(item => item.done)
-          
-          return todos
+          return arr.filter(item => item.done === true)
+         
         case "Undone":
-          todos.filter(item => !item.done)
-
-          return todos
+          return arr.filter(item => item.done === false)
         default:
           return [];
       } 
     } 
-    console.log()
+  
+    
     const sortByCreatedAt = () => {
       return selectViewTodos(todos.sort(stateCreatedAt ? sortUp : sortDown))
     } 
 
-
+    
 
     const renderItem  = () => {
+      
         return sortByCreatedAt().filter((_,index)=> (index >= (page * 5))&&(index < (page * 5) + 5)).map(todo => 
         <Item 
         key = {todo.uuid} 

@@ -20,7 +20,7 @@ export default function PaginationRounded({todos, handlerChange, countTodos}) {
   return (
     <div className={classes.root}>
         <Box display = 'flex' justifyContent = 'center'>
-            <Pagination count = {Math.ceil(todos.length / 5)} variant="outlined" shape="rounded" onChange = {(handlerChange)}  />
+            <Pagination count = {countTodos} variant="outlined" shape="rounded" onChange = {(handlerChange)}  />
         </Box> 
     </div>
   );

@@ -14,8 +14,6 @@ export default function App() {
   const [view, setView] = useState('All')
   const [page, setPage] = useState(0)
   const [error, setError] = useState('')
-  const [countTodos, setCountTodos] = useState(0)
-
   
   useEffect (() =>  {
     async function func() {
@@ -77,12 +75,24 @@ export default function App() {
       } return item
     }))}   
   }
+  useEffect(() => {
+    viewTodo(view)
+    console.log(todos)
+   }, [view])
 
-  // function viewTodos (todos) {
-    
-  //   setCountTodos(Math.ceil(todos.length / 5))
-  // }
-  
+  function viewTodo (view) {
+    switch (view) {
+      case "All":
+         return Math.ceil(todos.length / 5)
+      case "Done":
+        return Math.ceil(todos.filter(item => item.done === true).length / 5)
+      case "Undone": 
+        return  Math.ceil(todos.filter(item => item.done === false).length / 5)
+
+      default:
+        break;
+    }
+  }
   
   return (
     <div>
@@ -90,7 +100,7 @@ export default function App() {
         <h1>My ToDo List</h1>
       </Box>
         <Header  addTodo = {addNewTodo} />
-        <Filter sortByCreatedAt = {sortByCreatedAt} setView={setView} />
+        <Filter sortByCreatedAt = {sortByCreatedAt} setView={setView} viewTodo = {viewTodo} />
         <ListTodo
         todos = {todos}
         deleteTodo ={deleteTodo}
@@ -100,7 +110,7 @@ export default function App() {
         view = {view}
         changeTaskName = {changeTaskName}
         />
-        <Pagination todos = {todos} handlerChange = {handlerChange}  countTodos = {countTodos} />
+        <Pagination todos = {todos} handlerChange = {handlerChange}  countTodos = {viewTodo (view)} />
         <AlertError error = {error} />
     </div>
   )

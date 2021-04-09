@@ -13,7 +13,7 @@ const useStylesFilter = makeStyles({
     }
 }) 
 
-function Filter ({sortByCreatedAt, setView }) {
+function Filter ({sortByCreatedAt, setView}) {
     const classesFilter = useStylesFilter()
     return (
         <div className = {classesFilter.root}>
@@ -23,7 +23,7 @@ function Filter ({sortByCreatedAt, setView }) {
                         <Button variant="contained" onClick={() => setView('All')}>All Tasks</Button>
                     </Box>
                     <Box p = {1}>
-                        <Button variant="contained" color="primary" onClick={() => setView('Done')}>Done Tasks</Button>
+                        <Button variant="contained" color="primary" onClick={() =>setView('Done')}>Done Tasks</Button>
                     </Box> 
                     <Box p = {1}>
                         <Button variant="contained" color="secondary" onClick={() => setView('Undone')}>Undone Tasks</Button>
