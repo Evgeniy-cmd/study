@@ -11,35 +11,35 @@ const useStylesFilter = makeStyles({
         width: '100%',
         height: '50px'
     }
-}) 
+})
 
-function Filter (props) {
-    const {filters, filtersForDate} = props
+function Filter(props) {
+    const { filters, filtersForDate } = props
     const classesFilter = useStylesFilter()
     return (
-        <div className = {classesFilter.root}>
-            <Box display = 'flex' justifyContent = 'space-between' m = {1} p = {1}>
-                   <Box display = 'flex'>
-                    <Box p = {1}>
+        <div className={classesFilter.root}>
+            <Box display='flex' justifyContent='space-between' m={1} p={1}>
+                <Box display='flex'>
+                    <Box p={1}>
                         <Button variant="contained" onClick={() => filters('')}>All Tasks</Button>
                     </Box>
-                    <Box p = {1}>
-                        <Button variant="contained" color="primary" onClick={() => filters('true') }>Done Tasks</Button>
-                    </Box> 
-                    <Box p = {1}>
+                    <Box p={1}>
+                        <Button variant="contained" color="primary" onClick={() => filters('true')}>Done Tasks</Button>
+                    </Box>
+                    <Box p={1}>
                         <Button variant="contained" color="secondary" onClick={() => filters('false')}>Undone Tasks</Button>
                     </Box>
-                    </Box>
-                <Box display = 'inline-flex' alignItems = 'center' justifyContent = 'flex-end'>
+                </Box>
+                <Box display='inline-flex' alignItems='center' justifyContent='flex-end'>
                     <p>Sort by Date:</p>
-                    <IconButton edge = 'end' aria-label = 'sortUp' onClick = {() => filtersForDate('desc')}>
+                    <IconButton edge='end' aria-label='sortUp' onClick={() => filtersForDate('desc')}>
                         <ArrowUpwardIcon />
                     </IconButton>
-                    <IconButton  aria-label = 'sortDown' onClick = {() => filtersForDate('asc')} >
+                    <IconButton aria-label='sortDown' onClick={() => filtersForDate('asc')} >
                         <ArrowDownwardIcon />
                     </IconButton>
-                </Box>    
-            </Box>    
+                </Box>
+            </Box>
         </div>
     )
 }

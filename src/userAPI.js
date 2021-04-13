@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'https://dry-plains-46747.herokuapp.com/'
+const url = 'http://localhost:5000/'
 
 const instance = axios.create(
     {

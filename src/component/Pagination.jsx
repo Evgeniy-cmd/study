@@ -12,16 +12,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function PaginationRounded({todos, handlerChange, countTodos}) {
+export default function PaginationRounded({ handlerChange, countTodos }) {
   const classes = useStyles();
 
-    
-    
+
+
   return (
     <div className={classes.root}>
-        <Box display = 'flex' justifyContent = 'center'>
-            <Pagination count = {countTodos} variant="outlined" shape="rounded" onChange = {(handlerChange)}  />
-        </Box> 
+      <Box display='flex' justifyContent='center'>
+        <Pagination count={countTodos} variant="outlined" shape="rounded" onChange={(handlerChange)} />
+      </Box>
     </div>
   );
 }

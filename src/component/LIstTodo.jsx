@@ -6,78 +6,35 @@ import Item from './Item'
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-      margin: 5
-    },
-  }));
+  root: {
+    width: '100%',
+    margin: 5
+  },
+}));
 
 
-function ListTodo({todos, deleteTodo, doneTodo, stateCreatedAt, page, view, changeTaskName, changeHandler}){
-    const classesItem = useStyles()
-    // const sortUp = (a, b) => {
-    //   if(a.createdAt < b.createdAt) return 1
-    //   else if(a.createdAt > b.createdAt) return -1
-    //   else if(a.createdAt === b.createdAt) return 0
-    // }
-    // const sortDown = (a, b) => {
-    //   if(a.createdAt > b.createdAt) return 1
-    //   else if(a.createdAt < b.createdAt) return -1
-    //   else if(a.createdAt === b.createdAt) return 0
-    //  }
-
-    //  const selectViewTodos = (arr) => {
-    //   switch (view) {
-    //     case "All":
-    //       return arr 
-    //     case "Done":
-    //       return arr.filter(item => item.done === true)
-         
-    //     case "Undone":
-    //       return arr.filter(item => item.done === false)
-    //     default:
-    //       return [];
-    //   } 
-    // } 
+function ListTodo({ todos, deleteTodo, doneTodo, changeTaskName, changeHandler }) {
+  const classesItem = useStyles()
   
-    
-    // const sortByCreatedAt = () => {
-    //   return selectViewTodos(todos.sort(stateCreatedAt ? sortUp : sortDown))
-    // } 
-
-    
-
-    // const renderItem  = () => {
-      
-    //     return sortByCreatedAt().filter((_,index)=> (index >= (page * 5))&&(index < (page * 5) + 5)).map(todo => 
-    //     <Item 
-    //     key = {todo.uuid} 
-    //     todo = {todo} 
-    //     deleteTodo = {deleteTodo} 
-    //     doneTodo = {doneTodo} 
-    //     changeTaskName = {changeTaskName}
-    //     changeHandler = {changeHandler}
-    //     />)
-    // }
-    const filters = () => {
-      return todos.map(todo =>
-        <Item 
-        key = {todo.uuid} 
-        todo = {todo} 
-        deleteTodo = {deleteTodo} 
-        doneTodo = {doneTodo} 
-        changeTaskName = {changeTaskName}
-        changeHandler = {changeHandler}
-        />
-        )
-    } 
-    
-
-    return(
-            <List className = {classesItem.root}>
-                {filters()}
-            </List>
+  const filters = () => {
+    return todos.map(todo =>
+      <Item
+        key={todo.uuid}
+        todo={todo}
+        deleteTodo={deleteTodo}
+        doneTodo={doneTodo}
+        changeTaskName={changeTaskName}
+        changeHandler={changeHandler}
+      />
     )
+  }
+
+
+  return (
+    <List className={classesItem.root}>
+      {filters()}
+    </List>
+  )
 }
 
 
