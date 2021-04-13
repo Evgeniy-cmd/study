@@ -148,7 +148,7 @@ export default function App() {
             throw new Error("Input your task!")
           }
           event.preventDefault()
-          addNewTodo(event)
+          addNewTodo({name: textValue, done: false})
           setTextValue('')
           event.target.value = ""
         } catch (error) {
@@ -166,7 +166,7 @@ export default function App() {
         <Box display='flex' justifyContent='center' m={1} p={10}>
           <h1>My ToDo List</h1>
         </Box>
-        <Header handlerValueText = {handlerValueText} />
+        <Header handlerValueText = {handlerValueText} addNewTodo = {addNewTodo} />
         <Filter
           filters={filters}
           filtersForDate={filtersForDate} />
