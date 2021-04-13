@@ -9,7 +9,7 @@ const useStylesHeader = makeStyles({
     }
 })
 
-function Header({ addTodo, setIsError, setErrMessage }) {
+function Header({ addTodo }) {
     const classesHeader = useStylesHeader()
     const [value, setValue] = useState('')
 

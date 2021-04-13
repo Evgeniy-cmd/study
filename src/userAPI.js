@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'https://aqueous-cove-57786.herokuapp.com/api/'
+const url = 'https://dry-plains-46747.herokuapp.com/'
 
 const instance = axios.create(
     {
@@ -12,22 +12,22 @@ const instance = axios.create(
 )
 
 export const newTask = async (keys) => {
-    const responce = await instance.post('tasks', keys)
+    const responce = await instance.post('task', keys)
     return responce
 }
 
-export const getTask = async () => {
-    const responce = await instance.get(`tasks`)
+export const getTask = async (params) => {
+    const responce = await instance.get(`task?${params}`)
     return responce
 }
 
 export const doneTask = async (uuid, keys) => {
-    const responce = await instance.patch(`tasks/${uuid}`, keys)
+    const responce = await instance.patch(`task/${uuid}`, keys)
     return responce
 }
 
 export const deleteTask = async (uuid) => {
-    const responce = await instance.delete(`tasks/${uuid}`)
+    const responce = await instance.delete(`task/${uuid}`)
     return responce
 }
 

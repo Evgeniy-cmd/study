@@ -15,41 +15,52 @@ const useStyles = makeStyles((theme) => ({
 
 function ListTodo({todos, deleteTodo, doneTodo, stateCreatedAt, page, view, changeTaskName, changeHandler}){
     const classesItem = useStyles()
-    const sortUp = (a, b) => {
-      if(a.createdAt < b.createdAt) return 1
-      else if(a.createdAt > b.createdAt) return -1
-      else if(a.createdAt === b.createdAt) return 0
-    }
-    const sortDown = (a, b) => {
-      if(a.createdAt > b.createdAt) return 1
-      else if(a.createdAt < b.createdAt) return -1
-      else if(a.createdAt === b.createdAt) return 0
-     }
+    // const sortUp = (a, b) => {
+    //   if(a.createdAt < b.createdAt) return 1
+    //   else if(a.createdAt > b.createdAt) return -1
+    //   else if(a.createdAt === b.createdAt) return 0
+    // }
+    // const sortDown = (a, b) => {
+    //   if(a.createdAt > b.createdAt) return 1
+    //   else if(a.createdAt < b.createdAt) return -1
+    //   else if(a.createdAt === b.createdAt) return 0
+    //  }
 
-     const selectViewTodos = (arr) => {
-      switch (view) {
-        case "All":
-          return arr 
-        case "Done":
-          return arr.filter(item => item.done === true)
+    //  const selectViewTodos = (arr) => {
+    //   switch (view) {
+    //     case "All":
+    //       return arr 
+    //     case "Done":
+    //       return arr.filter(item => item.done === true)
          
-        case "Undone":
-          return arr.filter(item => item.done === false)
-        default:
-          return [];
-      } 
-    } 
+    //     case "Undone":
+    //       return arr.filter(item => item.done === false)
+    //     default:
+    //       return [];
+    //   } 
+    // } 
   
     
-    const sortByCreatedAt = () => {
-      return selectViewTodos(todos.sort(stateCreatedAt ? sortUp : sortDown))
-    } 
+    // const sortByCreatedAt = () => {
+    //   return selectViewTodos(todos.sort(stateCreatedAt ? sortUp : sortDown))
+    // } 
 
     
 
-    const renderItem  = () => {
+    // const renderItem  = () => {
       
-        return sortByCreatedAt().filter((_,index)=> (index >= (page * 5))&&(index < (page * 5) + 5)).map(todo => 
+    //     return sortByCreatedAt().filter((_,index)=> (index >= (page * 5))&&(index < (page * 5) + 5)).map(todo => 
+    //     <Item 
+    //     key = {todo.uuid} 
+    //     todo = {todo} 
+    //     deleteTodo = {deleteTodo} 
+    //     doneTodo = {doneTodo} 
+    //     changeTaskName = {changeTaskName}
+    //     changeHandler = {changeHandler}
+    //     />)
+    // }
+    const filters = () => {
+      return todos.map(todo =>
         <Item 
         key = {todo.uuid} 
         todo = {todo} 
@@ -57,14 +68,14 @@ function ListTodo({todos, deleteTodo, doneTodo, stateCreatedAt, page, view, chan
         doneTodo = {doneTodo} 
         changeTaskName = {changeTaskName}
         changeHandler = {changeHandler}
-        />)
-    }
-    
+        />
+        )
+    } 
     
 
     return(
             <List className = {classesItem.root}>
-                {renderItem()}
+                {filters()}
             </List>
     )
 }

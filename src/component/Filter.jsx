@@ -13,28 +13,29 @@ const useStylesFilter = makeStyles({
     }
 }) 
 
-function Filter ({sortByCreatedAt, setView}) {
+function Filter (props) {
+    const {filters, filtersForDate} = props
     const classesFilter = useStylesFilter()
     return (
         <div className = {classesFilter.root}>
             <Box display = 'flex' justifyContent = 'space-between' m = {1} p = {1}>
                    <Box display = 'flex'>
                     <Box p = {1}>
-                        <Button variant="contained" onClick={() => setView('All')}>All Tasks</Button>
+                        <Button variant="contained" onClick={() => filters('')}>All Tasks</Button>
                     </Box>
                     <Box p = {1}>
-                        <Button variant="contained" color="primary" onClick={() =>setView('Done')}>Done Tasks</Button>
+                        <Button variant="contained" color="primary" onClick={() => filters('true') }>Done Tasks</Button>
                     </Box> 
                     <Box p = {1}>
-                        <Button variant="contained" color="secondary" onClick={() => setView('Undone')}>Undone Tasks</Button>
+                        <Button variant="contained" color="secondary" onClick={() => filters('false')}>Undone Tasks</Button>
                     </Box>
                     </Box>
                 <Box display = 'inline-flex' alignItems = 'center' justifyContent = 'flex-end'>
                     <p>Sort by Date:</p>
-                    <IconButton edge = 'end' aria-label = 'sortUp' onClick = {() => sortByCreatedAt(false)}>
+                    <IconButton edge = 'end' aria-label = 'sortUp' onClick = {() => filtersForDate('desc')}>
                         <ArrowUpwardIcon />
                     </IconButton>
-                    <IconButton  aria-label = 'sortDown' onClick = {() => sortByCreatedAt(true)} >
+                    <IconButton  aria-label = 'sortDown' onClick = {() => filtersForDate('asc')} >
                         <ArrowDownwardIcon />
                     </IconButton>
                 </Box>    
