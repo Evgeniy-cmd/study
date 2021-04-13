@@ -15,7 +15,7 @@ export default function App() {
   const [todos, setTodos] = useState([])
   const [stateCreatedAt, setStateCreatedAt] = useState(false)
   const [view, setView] = useState('All')
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
   const [isError, setIsError] = useState(false)
   const [errMessage, setErrMessage] = useState('')
   const [countTodos, setCountTodos] = useState(0)
