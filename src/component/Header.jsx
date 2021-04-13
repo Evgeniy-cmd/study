@@ -11,7 +11,6 @@ const useStylesHeader = makeStyles({
 
 function Header(props) {
     const classesHeader = useStylesHeader()
-    // const [value, setValue] = useState('')
     return (
         <div>
             <Box display='flex' justifyContent='center' m={1} p={1}>
@@ -21,20 +20,7 @@ function Header(props) {
                     }}>
                     <TextField fullWidth id="outlined-basic" label="To Do:" variant="outlined"
                         onChange={ props.handlerValueText }
-                        //  setValue(event.target.value) }
-
-                        // value={value}
                         onKeyPress={ props.handlerValueText }
-                    //     if (event.key === 'Enter') {
-                    //         if (event.target.value.trim() === '') {
-                    //             alert('Input your task!')
-                    //         }
-                    //         else {
-                    //             addTodo({ name: value, done: false })
-                    //             setValue('')
-                    //         }
-                    //     }
-                    // }
                     />
                 </form>
             </Box>
