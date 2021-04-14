@@ -7,6 +7,9 @@ import Pagination from './component/Pagination'
 import { deleteTask, getTask, newTask, doneTask } from './userAPI'
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import SignIn from './SignIn'
+import SignUp from './SignUp'
 
 const querystring = require('querystring')
 
@@ -51,82 +54,83 @@ export default function App() {
     } catch (error) {
       setIsError(true)
       setErrMessage('Task already exist or must be longer than two characters')
-    }}
-
-
-    async function deleteTodo(uuid) {
-      const response = await deleteTask(uuid)
-      if (response.status === 200) {
-        const resGet = await getTask(querystring.stringify({
-          page: page,
-          done: check,
-          order: filterDate
-        }))
-        setTodos(resGet.data.rows)
-        setCountTodos(Math.ceil(resGet.data.count / 5))
-      }
-      setErrMessage(response.message)
     }
+  }
 
-    async function doneTodo(uuid) {
-      const checked = todos.find(item => item.uuid === uuid)
-      const response = await doneTask(uuid, { name: checked.name, done: !checked.done })
-      if (response.status === 200) {
-        setTodos(
-          todos.filter(item => {
-            if (item.uuid === uuid) {
-              item.done = response.data.done
-            }
-            return item
-          })
 
-        )
-      }
-      setErrMessage(response.message)
-    }
-
-    async function filters(statusItem) {
-      setCheck(statusItem)
-      const response = await getTask(querystring.stringify({
+  async function deleteTodo(uuid) {
+    const response = await deleteTask(uuid)
+    if (response.status === 200) {
+      const resGet = await getTask(querystring.stringify({
         page: page,
-        done: statusItem,
+        done: check,
         order: filterDate
       }))
-      setTodos(response.data.rows)
-      setView(
-        statusItem
+      setTodos(resGet.data.rows)
+      setCountTodos(Math.ceil(resGet.data.count / 5))
+    }
+    setErrMessage(response.message)
+  }
+
+  async function doneTodo(uuid) {
+    const checked = todos.find(item => item.uuid === uuid)
+    const response = await doneTask(uuid, { name: checked.name, done: !checked.done })
+    if (response.status === 200) {
+      setTodos(
+        todos.filter(item => {
+          if (item.uuid === uuid) {
+            item.done = response.data.done
+          }
+          return item
+        })
+
       )
-      setCountTodos(Math.ceil(response.data.count / 5))
     }
+    setErrMessage(response.message)
+  }
 
-    async function filtersForDate(valueDate) {
+  async function filters(statusItem) {
+    setCheck(statusItem)
+    const response = await getTask(querystring.stringify({
+      page: page,
+      done: statusItem,
+      order: filterDate
+    }))
+    setTodos(response.data.rows)
+    setView(
+      statusItem
+    )
+    setCountTodos(Math.ceil(response.data.count / 5))
+  }
 
-      setFilterDate(valueDate)
-      const response = await getTask(querystring.stringify({
-        page: page,
-        order: valueDate,
-        done: check
-      }))
-      setTodos(response.data.rows)
-      setStateCreatedAt(valueDate)
-      setCountTodos(Math.ceil(response.data.count / 5))
-    }
+  async function filtersForDate(valueDate) {
 
-    async function handlerChange(e, page) {
-      if (page === 1) setPage(0)
-      else setPage(page - 1)
+    setFilterDate(valueDate)
+    const response = await getTask(querystring.stringify({
+      page: page,
+      order: valueDate,
+      done: check
+    }))
+    setTodos(response.data.rows)
+    setStateCreatedAt(valueDate)
+    setCountTodos(Math.ceil(response.data.count / 5))
+  }
 
-      const response = await getTask(querystring.stringify({
-        page: page - 1,
-        order: filterDate,
-        done: check
-      }))
-      setTodos(response.data.rows)
-    }
+  async function handlerChange(e, page) {
+    if (page === 1) setPage(0)
+    else setPage(page - 1)
 
-    async function changeTaskName(value, uuid) {
-      try {
-        const response = await doneTask(uuid, { name: value })
+    const response = await getTask(querystring.stringify({
+      page: page - 1,
+      order: filterDate,
+      done: check
+    }))
+    setTodos(response.data.rows)
+  }
+
+  async function changeTaskName(value, uuid) {
+    try {
+      const response = await doneTask(uuid, { name: value })
       if (response.status === 200) {
         setTodos(todos.map(item => {
           if (item.uuid === uuid) {
@@ -134,65 +138,110 @@ export default function App() {
           } return item
         }))
       }
-      } catch (error) {
-        setIsError(true)
-        setErrMessage('Task already exist or must be longer than two characters')
-      } 
+    } catch (error) {
+      setIsError(true)
+      setErrMessage('Task already exist or must be longer than two characters')
     }
-    
-    const handlerValueText = (event) => {
-      if (event.key === "Enter") {
-        try {
-          if (event.target.value.trim() === "") {
-            event.target.value = ""
-            throw new Error("Input your task!")
-          }
-          event.preventDefault()
-          addNewTodo({name: textValue, done: false})
-          setTextValue('')
-          event.target.value = ""
-        } catch (error) {
-          setErrMessage(error.message)
-          setIsError(true)
-        }
-      } else {
-        setTextValue(event.target.value)
-      }
-    }
-  
-
-    return (
-      <div>
-        <Box display='flex' justifyContent='center' m={1} p={10}>
-          <h1>My ToDo List</h1>
-        </Box>
-        <Header handlerValueText = {handlerValueText} addNewTodo = {addNewTodo} />
-        <Filter
-          filters={filters}
-          filtersForDate={filtersForDate} />
-        <ListTodo
-          todos={todos}
-          deleteTodo={deleteTodo}
-          doneTodo={doneTodo}
-          stateCreatedAt={stateCreatedAt}
-          page={page}
-          view={view}
-          changeTaskName={changeTaskName}
-        />
-        <Pagination
-          todos={todos}
-          handlerChange={handlerChange}
-          countTodos={countTodos} />
-        <Snackbar
-          open={isError}
-          onClose={() => setIsError(false)}
-          autoHideDuration={5000}>
-          <Alert
-            severity="error"
-            onClose={() => setIsError(false)} >
-            {errMessage}
-          </Alert>
-        </Snackbar>
-      </div>
-    )
   }
+
+  const handlerValueText = (event) => {
+    if (event.key === "Enter") {
+      try {
+        if (event.target.value.trim() === "") {
+          event.target.value = ""
+          throw new Error("Input your task!")
+        }
+        event.preventDefault()
+        addNewTodo({ name: textValue, done: false })
+        setTextValue('')
+        event.target.value = ""
+      } catch (error) {
+        setErrMessage(error.message)
+        setIsError(true)
+      }
+    } else {
+      setTextValue(event.target.value)
+    }
+  }
+  <div>
+    <Box display='flex' justifyContent='center' m={1} p={10}>
+      <h1>My ToDo List</h1>
+    </Box>
+    <Header handlerValueText={handlerValueText} addNewTodo={addNewTodo} />
+    <Filter
+      filters={filters}
+      filtersForDate={filtersForDate} />
+    <ListTodo
+      todos={todos}
+      deleteTodo={deleteTodo}
+      doneTodo={doneTodo}
+      stateCreatedAt={stateCreatedAt}
+      page={page}
+      view={view}
+      changeTaskName={changeTaskName}
+    />
+    <Pagination
+      todos={todos}
+      handlerChange={handlerChange}
+      countTodos={countTodos} />
+    <Snackbar
+      open={isError}
+      onClose={() => setIsError(false)}
+      autoHideDuration={5000}>
+      <Alert
+        severity="error"
+        onClose={() => setIsError(false)} >
+        {errMessage}
+      </Alert>
+    </Snackbar>
+  </div>
+
+  return (
+    <Router>
+      <Switch>
+        <Route path='/study/reg'>
+          <SignUp />
+        </Route>
+
+        <Route path='/study/auth'>
+          <SignIn />
+        </Route>
+
+        <Route path='/study/app'>
+          <div>
+            <Box display='flex' justifyContent='center' m={1} p={10}>
+              <h1>My ToDo List</h1>
+            </Box>
+            <Header handlerValueText={handlerValueText} addNewTodo={addNewTodo} />
+            <Filter
+              filters={filters}
+              filtersForDate={filtersForDate} />
+            <ListTodo
+              todos={todos}
+              deleteTodo={deleteTodo}
+              doneTodo={doneTodo}
+              stateCreatedAt={stateCreatedAt}
+              page={page}
+              view={view}
+              changeTaskName={changeTaskName}
+            />
+            <Pagination
+              todos={todos}
+              handlerChange={handlerChange}
+              countTodos={countTodos} />
+            <Snackbar
+              open={isError}
+              onClose={() => setIsError(false)}
+              autoHideDuration={5000}>
+              <Alert
+                severity="error"
+                onClose={() => setIsError(false)} >
+                {errMessage}
+              </Alert>
+            </Snackbar>
+          </div>
+        </Route>
+      </Switch>
+    </Router>
+  )
+}
