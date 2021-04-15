@@ -12,6 +12,7 @@ import Container from '@material-ui/core/Container'
 import { postUser } from '../usersAPI'
 
 
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -38,12 +39,15 @@ export default function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const form = async () => {
+  const form = async (event) => {
+    event.preventDefault()
     const response = await postUser({
       emai: email,
       password: password,
       typeRequest: 'auth'
     })
+    // console.log(response.data.token)
+
     localStorage.setItem('token', response.data.token)
   }
 
@@ -95,6 +99,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(event) => form(event)}
           >
             Sign In
           </Button>

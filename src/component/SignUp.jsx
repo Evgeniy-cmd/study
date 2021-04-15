@@ -39,7 +39,8 @@ export default function SignUp() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const form = async () => {
+  const form = async (event) => {
+    event.preventDefault()
     const response = await postUser({
       firstName: firstName,
       lastName: lastName,
@@ -48,6 +49,7 @@ export default function SignUp() {
       typeRequest: 'reg'
     })
     localStorage.setItem('token', response.data.token)
+    console.log(localStorage.getItem('token'))
   }
 
   return (
@@ -131,7 +133,7 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => form()}
+            onClick={(event) => form(event)}
           >
             Sign Up
           </Button>

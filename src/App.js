@@ -8,6 +8,7 @@ import { deleteTask, getTask, newTask, doneTask } from './tasksAPI'
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import {Redirect} from 'react-router'
 import SignIn from './component/SignIn'
 import SignUp from './component/SignUp'
 
@@ -27,13 +28,17 @@ export default function App() {
 
   useEffect(() => {
     async function func() {
-      const response = await getTask(querystring.stringify({
-        page: page,
-        order: 'asc'
-      }))
-      if (response.status === 200) {
-        setTodos(response.data.rows)
-        setCountTodos(Math.ceil(response.data.count / 5))
+      try{
+        const response = await getTask(querystring.stringify({
+          page: page,
+          order: 'asc'
+        }))
+        if (response.status === 200) {
+          setTodos(response.data.rows)
+          setCountTodos(Math.ceil(response.data.count / 5))
+        }
+      }catch(e){
+        console.log(e)
       }
     }
     func()
@@ -200,15 +205,15 @@ export default function App() {
     <Router>
       <Switch>
         <Route path='/study/reg'>
-          <SignUp />
+          {localStorage.getItem('token') ? <Redirect to='study/reg' /> : <SignUp />}
         </Route>
 
         <Route path='/study/auth'>
-          <SignIn />
+          {localStorage.getItem('token') ? <Redirect to='study/auth' /> : <SignIn />}
         </Route>
 
         <Route path='/study/app'>
-          <div>
+        localStorage.getItem('token') ?  <div>
             <Box display='flex' justifyContent='center' m={1} p={10}>
               <h1>My ToDo List</h1>
             </Box>
@@ -239,7 +244,8 @@ export default function App() {
                 {errMessage}
               </Alert>
             </Snackbar>
-          </div>
+          </div> : <SignIn />}
+         
         </Route>
       </Switch>
     </Router>

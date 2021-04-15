@@ -14,30 +14,30 @@ const instance = axios.create(
 
 export const newTask = async (keys) => {
     if (tokenControl()) {
-        const responce = await instance.post('task', keys)
-        return responce
+        const response = await instance.post('task', keys)
+        return response
     }
 }
 
 export const getTask = async (params) => {
     if (tokenControl()) {
-        const responce = await instance.get(`task?${params}`)
-        return responce
+        const response = await instance.get(`task?${params}`)
+        return response
     }
 }
 
 export const doneTask = async (uuid, keys) => {
     if (tokenControl()) {
-        const responce = await instance.patch(`task/${uuid}`, keys)
-        return responce
+        const response = await instance.patch(`task/${uuid}`, keys)
+        return response
     }
 }
 
 
 export const deleteTask = async (uuid) => {
     if (tokenControl()) {
-        const responce = await instance.delete(`task/${uuid}`)
-        return responce
+        const response = await instance.delete(`task/${uuid}`)
+        return response
     }
 }
 

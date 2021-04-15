@@ -1,22 +1,20 @@
 import jwt_decode from 'jwt-decode'
 
 export const tokenControl = () => {
-    try {
-        if (localStorage.getItem('token') !== null) {
-            const token = localStorage.getItem('token')
 
-            const decodeToken = jwt_decode(token)
+    if (localStorage.getItem('token') !== null) {
+        const token = localStorage.getItem('token')
+       
+        const decodeToken = jwt_decode(token)
 
-            const realTime = new Date().getTime() / 180
+        const realTime = new Date().getTime() / 1000
 
-            if (realTime > decodeToken.exp) {
-                localStorage.removeItem('token')
-                return false
-            }
-            return true
+        if (realTime > decodeToken.exp) {
+            localStorage.removeItem('token')
+            return false
         }
-        return false
-    } catch (error) {
-        console.log(error)
+        return true
     }
-}
+    return false
+} 
+console.log(localStorage)
