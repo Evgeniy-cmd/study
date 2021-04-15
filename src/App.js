@@ -4,12 +4,12 @@ import Filter from './component/Filter'
 import Box from '@material-ui/core/Box';
 import ListTodo from './component/LIstTodo'
 import Pagination from './component/Pagination'
-import { deleteTask, getTask, newTask, doneTask } from './userAPI'
+import { deleteTask, getTask, newTask, doneTask } from './tasksAPI'
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import SignIn from './SignIn'
-import SignUp from './SignUp'
+import SignIn from './component/SignIn'
+import SignUp from './component/SignUp'
 
 const querystring = require('querystring')
 
