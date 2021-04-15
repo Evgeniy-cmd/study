@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React, { useState } from 'react'
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import Link from '@material-ui/core/Link'
+import Grid from '@material-ui/core/Grid'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
 import { postUser } from '../usersAPI'
 
 
@@ -30,20 +30,16 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+}))
 
 export default function SignIn() {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const form = async () => {
     const response = await postUser({
-      firstName: firstName,
-      lastName: lastName,
       emai: email,
       password: password,
       typeRequest: 'auth'
@@ -72,6 +68,10 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={(event) => {
+              setEmail(event.target.value)
+            }}
           />
           <TextField
             variant="outlined"
@@ -83,6 +83,10 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(event) => {
+              setPassword(event.target.value)
+            }}
           />
 
           <Button

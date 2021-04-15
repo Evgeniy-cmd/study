@@ -45,7 +45,7 @@ export default function SignUp() {
       lastName: lastName,
       emai: email,
       password: password,
-      typeRequest: 'auth'
+      typeRequest: 'reg'
     })
     localStorage.setItem('token', response.data.token)
   }
