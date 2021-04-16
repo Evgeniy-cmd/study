@@ -25,7 +25,7 @@ function Item({ todo, deleteTodo, doneTodo, changeTaskName }) {
         <Checkbox
           edge="start"
           checked={check}
-          onChange={(event) => {
+          onChange={() => {
             doneTodo(todo.uuid)
             setCheck(!check)
           }}

@@ -8,23 +8,23 @@ import { deleteTask, getTask, newTask, doneTask } from './tasksAPI'
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import {Redirect} from 'react-router'
 import SignIn from './component/SignIn'
 import SignUp from './component/SignUp'
+import Button from '@material-ui/core/Button'
+import { useHistory } from "react-router-dom";
 
 const querystring = require('querystring')
 
 export default function App() {
   const [todos, setTodos] = useState([])
-  const [stateCreatedAt, setStateCreatedAt] = useState(false)
-  const [view, setView] = useState('All')
   const [page, setPage] = useState(0)
-  const [isError, setIsError] = useState(false)
   const [errMessage, setErrMessage] = useState('')
   const [countTodos, setCountTodos] = useState(0)
   const [check, setCheck] = useState('')
   const [filterDate, setFilterDate] = useState('asc')
   const [textValue, setTextValue] = useState('')
+
+  let history = useHistory()
 
   useEffect(() => {
     async function func() {
@@ -57,8 +57,7 @@ export default function App() {
         setCountTodos(Math.ceil(resGet.data.count / 5))
       }
     } catch (error) {
-      setIsError(true)
-      setErrMessage('Task already exist or must be longer than two characters')
+      setErrMessage('Task already exist')
     }
   }
 
@@ -102,9 +101,6 @@ export default function App() {
       order: filterDate
     }))
     setTodos(response.data.rows)
-    setView(
-      statusItem
-    )
     setCountTodos(Math.ceil(response.data.count / 5))
   }
 
@@ -117,7 +113,6 @@ export default function App() {
       done: check
     }))
     setTodos(response.data.rows)
-    setStateCreatedAt(valueDate)
     setCountTodos(Math.ceil(response.data.count / 5))
   }
 
@@ -144,8 +139,7 @@ export default function App() {
         }))
       }
     } catch (error) {
-      setIsError(true)
-      setErrMessage('Task already exist or must be longer than two characters')
+      setErrMessage('Task already exist')
     }
   }
 
@@ -162,58 +156,35 @@ export default function App() {
         event.target.value = ""
       } catch (error) {
         setErrMessage(error.message)
-        setIsError(true)
       }
     } else {
       setTextValue(event.target.value)
     }
   }
-  <div>
-    <Box display='flex' justifyContent='center' m={1} p={10}>
-      <h1>My ToDo List</h1>
-    </Box>
-    <Header handlerValueText={handlerValueText} addNewTodo={addNewTodo} />
-    <Filter
-      filters={filters}
-      filtersForDate={filtersForDate} />
-    <ListTodo
-      todos={todos}
-      deleteTodo={deleteTodo}
-      doneTodo={doneTodo}
-      stateCreatedAt={stateCreatedAt}
-      page={page}
-      view={view}
-      changeTaskName={changeTaskName}
-    />
-    <Pagination
-      todos={todos}
-      handlerChange={handlerChange}
-      countTodos={countTodos} />
-    <Snackbar
-      open={isError}
-      onClose={() => setIsError(false)}
-      autoHideDuration={5000}>
-      <Alert
-        severity="error"
-        onClose={() => setIsError(false)} >
-        {errMessage}
-      </Alert>
-    </Snackbar>
-  </div>
+  
 
   return (
     <Router>
       <Switch>
         <Route path='/study/reg'>
-          {localStorage.getItem('token') ? <Redirect to='study/reg' /> : <SignUp />}
+          <SignUp />
         </Route>
 
         <Route path='/study/auth'>
-          {localStorage.getItem('token') ? <Redirect to='study/auth' /> : <SignIn />}
+          <SignIn />
         </Route>
 
         <Route path='/study/app'>
-        localStorage.getItem('token') ?  <div>
+        <div>
+        <Box display='flex' justifyContent='flex-end'>
+        <Button variant="contained" color="primary" href="#contained-buttons" 
+        onClick={() =>
+          {localStorage.removeItem('token')
+          history.go(-1)}
+          }>
+        Log Out
+        </Button>
+        </Box>
             <Box display='flex' justifyContent='center' m={1} p={10}>
               <h1>My ToDo List</h1>
             </Box>
@@ -225,9 +196,7 @@ export default function App() {
               todos={todos}
               deleteTodo={deleteTodo}
               doneTodo={doneTodo}
-              stateCreatedAt={stateCreatedAt}
               page={page}
-              view={view}
               changeTaskName={changeTaskName}
             />
             <Pagination
@@ -235,17 +204,13 @@ export default function App() {
               handlerChange={handlerChange}
               countTodos={countTodos} />
             <Snackbar
-              open={isError}
-              onClose={() => setIsError(false)}
-              autoHideDuration={5000}>
-              <Alert
-                severity="error"
-                onClose={() => setIsError(false)} >
+              open={errMessage}
+              autoHideDuration={2000}>
+              <Alert severity="error">
                 {errMessage}
               </Alert>
             </Snackbar>
-          </div> : <SignIn />}
-         
+          </div> 
         </Route>
       </Switch>
     </Router>

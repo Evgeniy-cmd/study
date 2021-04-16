@@ -42,7 +42,7 @@ export default function SignIn() {
   const form = async (event) => {
     event.preventDefault()
     const response = await postUser({
-      emai: email,
+      email: email,
       password: password,
       typeRequest: 'auth'
     })
@@ -105,7 +105,7 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="http://localhost:3000/study/reg" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

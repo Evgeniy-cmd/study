@@ -44,7 +44,7 @@ export default function SignUp() {
     const response = await postUser({
       firstName: firstName,
       lastName: lastName,
-      emai: email,
+      email: email,
       password: password,
       typeRequest: 'reg'
     })
@@ -139,7 +139,7 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="http://localhost:3000/study/auth" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
