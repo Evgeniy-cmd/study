@@ -10,7 +10,9 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { postUser } from '../usersAPI'
-
+import { useHistory } from "react-router-dom"
+import Snackbar from '@material-ui/core/Snackbar'
+import Alert from '@material-ui/lab/Alert'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,20 +37,34 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles()
-
+  let history = useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errMessage, setErrMessage] = useState('')
+  const [isError, setIsError] = useState(false)
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setIsError(false)
+  }
 
   const form = async (event) => {
-    event.preventDefault()
-    const response = await postUser({
-      email: email,
-      password: password,
-      typeRequest: 'auth'
-    })
-    // console.log(response.data.token)
-
-    localStorage.setItem('token', response.data.token)
+    try {
+      event.preventDefault()
+      const response = await postUser({
+        email: email,
+        password: password,
+        typeRequest: 'auth'
+      })
+      localStorage.setItem('token', response.data.token)
+      history.push('/study/app')
+      history.go()
+    } catch (error) {
+      setIsError(true)
+      setErrMessage(error.message)
+    }
   }
 
   return (
@@ -110,6 +126,16 @@ export default function SignIn() {
               </Link>
             </Grid>
           </Grid>
+          <Snackbar
+            open={isError}
+            autoHideDuration={2000}
+            onClose={handleClose}>
+            <Alert 
+            severity="error" 
+            onClose={handleClose}>
+              {errMessage}
+            </Alert>
+          </Snackbar>
         </form>
       </div>
     </Container>

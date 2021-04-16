@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import Header from './component/Header'
 import Filter from './component/Filter'
-import Box from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box'
 import ListTodo from './component/LIstTodo'
 import Pagination from './component/Pagination'
 import { deleteTask, getTask, newTask, doneTask } from './tasksAPI'
-import Snackbar from '@material-ui/core/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
 import SignIn from './component/SignIn'
 import SignUp from './component/SignUp'
 import Button from '@material-ui/core/Button'
-import { useHistory } from "react-router-dom";
 
 const querystring = require('querystring')
 
@@ -22,13 +21,13 @@ export default function App() {
   const [countTodos, setCountTodos] = useState(0)
   const [check, setCheck] = useState('')
   const [filterDate, setFilterDate] = useState('asc')
-  const [textValue, setTextValue] = useState('')
+
 
   let history = useHistory()
 
   useEffect(() => {
     async function func() {
-      try{
+      try {
         const response = await getTask(querystring.stringify({
           page: page,
           order: 'asc'
@@ -37,12 +36,15 @@ export default function App() {
           setTodos(response.data.rows)
           setCountTodos(Math.ceil(response.data.count / 5))
         }
-      }catch(e){
+      } catch (e) {
         console.log(e)
       }
     }
     func()
   }, [])
+
+  console.log("-------------", errMessage.length > 0);
+
 
   async function addNewTodo(newTodo) {
     try {
@@ -73,7 +75,6 @@ export default function App() {
       setTodos(resGet.data.rows)
       setCountTodos(Math.ceil(resGet.data.count / 5))
     }
-    setErrMessage(response.message)
   }
 
   async function doneTodo(uuid) {
@@ -143,25 +144,13 @@ export default function App() {
     }
   }
 
-  const handlerValueText = (event) => {
-    if (event.key === "Enter") {
-      try {
-        if (event.target.value.trim() === "") {
-          event.target.value = ""
-          throw new Error("Input your task!")
-        }
-        event.preventDefault()
-        addNewTodo({ name: textValue, done: false })
-        setTextValue('')
-        event.target.value = ""
-      } catch (error) {
-        setErrMessage(error.message)
-      }
-    } else {
-      setTextValue(event.target.value)
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
     }
+    console.log('++++++++++++++++')
+    setErrMessage(errMessage > 0)
   }
-  
 
   return (
     <Router>
@@ -175,20 +164,23 @@ export default function App() {
         </Route>
 
         <Route path='/study/app'>
-        <div>
-        <Box display='flex' justifyContent='flex-end'>
-        <Button variant="contained" color="primary" href="#contained-buttons" 
-        onClick={() =>
-          {localStorage.removeItem('token')
-          history.go(-1)}
-          }>
-        Log Out
+          <div>
+            <Box display='flex' justifyContent='flex-end' margin={4}>
+              <Button variant="contained" color="primary" href="#contained-buttons"
+                onClick={() => {
+                  localStorage.removeItem('token')
+                  history.push('/study/auth')
+                }
+                }>
+                Log Out
         </Button>
-        </Box>
+            </Box>
             <Box display='flex' justifyContent='center' m={1} p={10}>
               <h1>My ToDo List</h1>
             </Box>
-            <Header handlerValueText={handlerValueText} addNewTodo={addNewTodo} />
+            <Header 
+            addTodo={addNewTodo}
+            setErrMessage={setErrMessage} />
             <Filter
               filters={filters}
               filtersForDate={filtersForDate} />
@@ -196,21 +188,24 @@ export default function App() {
               todos={todos}
               deleteTodo={deleteTodo}
               doneTodo={doneTodo}
-              page={page}
               changeTaskName={changeTaskName}
             />
             <Pagination
-              todos={todos}
               handlerChange={handlerChange}
               countTodos={countTodos} />
             <Snackbar
-              open={errMessage}
-              autoHideDuration={2000}>
-              <Alert severity="error">
+              open={
+                errMessage.length > 0
+              }
+              autoHideDuration={2000}
+              onClose={handleClose}>
+              <Alert
+                severity="error"
+                onClose={handleClose}>
                 {errMessage}
               </Alert>
             </Snackbar>
-          </div> 
+          </div>
         </Route>
       </Switch>
     </Router>

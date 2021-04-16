@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function ListTodo({ todos, deleteTodo, doneTodo, changeTaskName, changeHandler }) {
+function ListTodo({ todos, deleteTodo, doneTodo, changeTaskName }) {
   const classesItem = useStyles()
   
   const filters = () => {
@@ -24,7 +24,6 @@ function ListTodo({ todos, deleteTodo, doneTodo, changeTaskName, changeHandler }
         deleteTodo={deleteTodo}
         doneTodo={doneTodo}
         changeTaskName={changeTaskName}
-        changeHandler={changeHandler}
       />
     )
   }

@@ -16,7 +16,6 @@ const instance = axios.create(
 export const newTask = async (keys) => {
     if (tokenControl()) {
         const response = await instance.post('task', keys)
-        console.log(56555)
         return response
     }
 }
