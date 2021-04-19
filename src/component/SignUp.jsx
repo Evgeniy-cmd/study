@@ -157,10 +157,10 @@ export default function SignUp() {
           <Grid container justify="flex-end">
             <Grid item>
               <Link
-               onClick={() => {
-                history.push('/study/auth')
-              }}
-               variant="body2">
+                onClick={() => {
+                  history.push('/study/auth')
+                }}
+                variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -169,9 +169,9 @@ export default function SignUp() {
             open={errMessage.length > 0}
             autoHideDuration={2000}
             onClose={handleClose}>
-            <Alert 
-            severity="error" 
-            onClose={handleClose}>
+            <Alert
+              severity="error"
+              onClose={handleClose}>
               {errMessage}
             </Alert>
           </Snackbar>

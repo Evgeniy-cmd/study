@@ -119,9 +119,11 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link onClick={() => {
-                history.push('/study/reg')
-              }} variant="body2">
+              <Link
+                onClick={() => {
+                  history.push('/study/reg')
+                }}
+                variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -130,9 +132,9 @@ export default function SignIn() {
             open={errMessage.length > 0}
             autoHideDuration={2000}
             onClose={handleClose}>
-            <Alert 
-            severity="error" 
-            onClose={handleClose}>
+            <Alert
+              severity="error"
+              onClose={handleClose}>
               {errMessage}
             </Alert>
           </Snackbar>
