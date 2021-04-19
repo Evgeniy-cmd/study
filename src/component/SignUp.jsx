@@ -62,7 +62,9 @@ export default function SignUp() {
       })
       localStorage.setItem('token', response.data.token)
       history.push('/study/app')
-      history.go()реп
+      history.go()
+    }
+    catch (error) {
       setErrMessage(error.message)
     }
   }
