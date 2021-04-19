@@ -26,7 +26,7 @@ export default function App() {
   let history = useHistory()
 
   useEffect(() => {
-    async function func() {
+    async function getAllTask() {
       try {
         const response = await getTask(querystring.stringify({
           page: page,
@@ -40,10 +40,9 @@ export default function App() {
         console.log(e)
       }
     }
-    func()
+    getAllTask()
   }, [])
 
-  console.log("-------------", errMessage.length > 0);
 
 
   async function addNewTodo(newTodo) {
@@ -148,7 +147,6 @@ export default function App() {
     if (reason === 'clickaway') {
       return;
     }
-    console.log('++++++++++++++++')
     setErrMessage(errMessage > 0)
   }
 
@@ -178,9 +176,9 @@ export default function App() {
             <Box display='flex' justifyContent='center' m={1} p={10}>
               <h1>My ToDo List</h1>
             </Box>
-            <Header 
-            addTodo={addNewTodo}
-            setErrMessage={setErrMessage} />
+            <Header
+              addTodo={addNewTodo}
+              setErrMessage={setErrMessage} />
             <Filter
               filters={filters}
               filtersForDate={filtersForDate} />
@@ -194,9 +192,7 @@ export default function App() {
               handlerChange={handlerChange}
               countTodos={countTodos} />
             <Snackbar
-              open={
-                errMessage.length > 0
-              }
+              open={errMessage.length > 0}
               autoHideDuration={2000}
               onClose={handleClose}>
               <Alert

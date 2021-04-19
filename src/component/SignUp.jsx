@@ -42,13 +42,12 @@ export default function SignUp() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errMessage, setErrMessage] = useState('')
-  const [isError, setIsError] = useState(false)
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-    setIsError(false)
+    setErrMessage(errMessage.length > 0)
   }
 
   const form = async (event) => {
@@ -61,13 +60,11 @@ export default function SignUp() {
         password: password,
         typeRequest: 'reg'
       })
-      console.log(response)
       localStorage.setItem('token', response.data.token)
       history.push('/study/app')
       history.go()
     }
     catch (error) {
-      setIsError(true)
       setErrMessage(error.message)
     }
   }
@@ -165,7 +162,7 @@ export default function SignUp() {
             </Grid>
           </Grid>
           <Snackbar
-            open={isError}
+            open={errMessage.length > 0}
             autoHideDuration={2000}
             onClose={handleClose}>
             <Alert 

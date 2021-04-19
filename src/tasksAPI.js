@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { tokenControl } from './token'
 
-const url = 'http://localhost:5000/'
+const url = 'https://dry-plains-46747.herokuapp.com/'
 
 const instance = axios.create(
     {

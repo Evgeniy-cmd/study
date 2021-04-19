@@ -41,13 +41,12 @@ export default function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errMessage, setErrMessage] = useState('')
-  const [isError, setIsError] = useState(false)
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-    setIsError(false)
+    setErrMessage(errMessage.length > 0)
   }
 
   const form = async (event) => {
@@ -62,7 +61,6 @@ export default function SignIn() {
       history.push('/study/app')
       history.go()
     } catch (error) {
-      setIsError(true)
       setErrMessage(error.message)
     }
   }
@@ -127,7 +125,7 @@ export default function SignIn() {
             </Grid>
           </Grid>
           <Snackbar
-            open={isError}
+            open={errMessage.length > 0}
             autoHideDuration={2000}
             onClose={handleClose}>
             <Alert 
