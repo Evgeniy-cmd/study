@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "https://evgeniy-cmd.github.io/static/css/main.6f1a3142.chunk.css",
-    "main.js": "https://evgeniy-cmd.github.io/static/js/main.4bdbb7c7.chunk.js",
-    "main.js.map": "https://evgeniy-cmd.github.io/static/js/main.4bdbb7c7.chunk.js.map",
+    "main.js": "https://evgeniy-cmd.github.io/static/js/main.de64a1dd.chunk.js",
+    "main.js.map": "https://evgeniy-cmd.github.io/static/js/main.de64a1dd.chunk.js.map",
     "runtime-main.js": "https://evgeniy-cmd.github.io/static/js/runtime-main.74f3570c.js",
     "runtime-main.js.map": "https://evgeniy-cmd.github.io/static/js/runtime-main.74f3570c.js.map",
     "static/js/2.e77e04c9.chunk.js": "https://evgeniy-cmd.github.io/static/js/2.e77e04c9.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.74f3570c.js",
     "static/js/2.e77e04c9.chunk.js",
     "static/css/main.6f1a3142.chunk.css",
-    "static/js/main.4bdbb7c7.chunk.js"
+    "static/js/main.de64a1dd.chunk.js"
   ]
 }
