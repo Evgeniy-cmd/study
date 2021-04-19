@@ -167,7 +167,7 @@ export default function App() {
               <Button variant="contained" color="primary" href="#contained-buttons"
                 onClick={() => {
                   localStorage.removeItem('token')
-                  history.push('/study/auth')
+                  history.push('/study/reg')
                 }
                 }>
                 Log Out
