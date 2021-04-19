@@ -58,7 +58,7 @@ export default function SignIn() {
         typeRequest: 'auth'
       })
       localStorage.setItem('token', response.data.token)
-      history.push('/study/app')
+      history.push('/app')
       history.go()
     } catch (error) {
       setErrMessage(error.message)
@@ -121,7 +121,7 @@ export default function SignIn() {
             <Grid item>
               <Link
                 onClick={() => {
-                  history.push('/study/reg')
+                  history.push('/reg')
                 }}
                 variant="body2">
                 {"Don't have an account? Sign Up"}

@@ -103,7 +103,7 @@ export default function App() {
     setTodos(response.data.rows)
     setCountTodos(Math.ceil(response.data.count / 5))
   }
-
+  
   async function filtersForDate(valueDate) {
     history={history}
     setFilterDate(valueDate)
@@ -151,23 +151,23 @@ export default function App() {
   }
 
   return (
-    <Router basename='/'>
+    <Router basename='/' >
       <Switch>
-        <Route path='/study/reg' >
+        <Route path='/reg' >
           <SignUp />
         </Route>
 
-        <Route path='/study/auth' >
+        <Route path='/auth' >
           <SignIn />
         </Route>
 
-        <Route path='/study/app' >
+        <Route path='/app' >
           <div>
             <Box display='flex' justifyContent='flex-end' margin={4}>
-              <Button variant="contained" color="primary" href="#contained-buttons"
+              <Button variant="contained" color="primary" 
                 onClick={() => {
                   localStorage.removeItem('token')
-                  history.push('study/auth')
+                  history.push('/auth')
                 }
                 }>
                 Log Out

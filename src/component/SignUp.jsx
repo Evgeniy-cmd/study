@@ -61,7 +61,7 @@ export default function SignUp() {
         typeRequest: 'reg'
       })
       localStorage.setItem('token', response.data.token)
-      history.push('/study/app')
+      history.push('/app')
       history.go()
     }
     catch (error) {
@@ -158,7 +158,7 @@ export default function SignUp() {
             <Grid item>
               <Link
                 onClick={() => {
-                  history.push('/study/auth')
+                  history.push('/auth')
                 }}
                 variant="body2">
                 Already have an account? Sign in
