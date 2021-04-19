@@ -156,7 +156,11 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="https://evgeniy-cmd.github.io/study/auth" variant="body2">
+              <Link
+               onClick={() => {
+                history.push('/study/auth')
+              }}
+               variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

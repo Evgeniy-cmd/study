@@ -119,7 +119,9 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="https://evgeniy-cmd.github.io/study/reg" variant="body2">
+              <Link onClick={() => {
+                history.push('/study/reg')
+              }} variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
