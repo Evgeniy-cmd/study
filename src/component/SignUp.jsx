@@ -62,9 +62,7 @@ export default function SignUp() {
       })
       localStorage.setItem('token', response.data.token)
       history.push('/study/app')
-      history.go()
-    }
-    catch (error) {
+      history.go()реп
       setErrMessage(error.message)
     }
   }
@@ -156,7 +154,7 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="http://localhost:3000/study/auth" variant="body2">
+              <Link href="https://evgeniy-cmd.github.io/study/auth" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

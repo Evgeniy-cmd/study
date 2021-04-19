@@ -119,7 +119,7 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="http://localhost:3000/study/reg" variant="body2">
+              <Link href="https://evgeniy-cmd.github.io/study/reg" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
