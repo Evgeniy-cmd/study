@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "https://evgeniy-cmd.github.io/study/#/static/css/main.6f1a3142.chunk.css",
-    "main.js": "https://evgeniy-cmd.github.io/study/#/static/js/main.ec9ab19e.chunk.js",
-    "main.js.map": "https://evgeniy-cmd.github.io/study/#/static/js/main.ec9ab19e.chunk.js.map",
-    "runtime-main.js": "https://evgeniy-cmd.github.io/study/#/static/js/runtime-main.3db2a395.js",
-    "runtime-main.js.map": "https://evgeniy-cmd.github.io/study/#/static/js/runtime-main.3db2a395.js.map",
-    "static/js/2.e77e04c9.chunk.js": "https://evgeniy-cmd.github.io/study/#/static/js/2.e77e04c9.chunk.js",
-    "static/js/2.e77e04c9.chunk.js.map": "https://evgeniy-cmd.github.io/study/#/static/js/2.e77e04c9.chunk.js.map",
-    "static/js/3.4a5fc2b4.chunk.js": "https://evgeniy-cmd.github.io/study/#/static/js/3.4a5fc2b4.chunk.js",
-    "static/js/3.4a5fc2b4.chunk.js.map": "https://evgeniy-cmd.github.io/study/#/static/js/3.4a5fc2b4.chunk.js.map",
-    "index.html": "https://evgeniy-cmd.github.io/study/#/index.html",
-    "static/css/main.6f1a3142.chunk.css.map": "https://evgeniy-cmd.github.io/study/#/static/css/main.6f1a3142.chunk.css.map",
-    "static/js/2.e77e04c9.chunk.js.LICENSE.txt": "https://evgeniy-cmd.github.io/study/#/static/js/2.e77e04c9.chunk.js.LICENSE.txt"
+    "main.css": "https://evgeniy-cmd.github.io/study/static/css/main.6f1a3142.chunk.css",
+    "main.js": "https://evgeniy-cmd.github.io/study/static/js/main.c0dc5ac6.chunk.js",
+    "main.js.map": "https://evgeniy-cmd.github.io/study/static/js/main.c0dc5ac6.chunk.js.map",
+    "runtime-main.js": "https://evgeniy-cmd.github.io/study/static/js/runtime-main.79ccb137.js",
+    "runtime-main.js.map": "https://evgeniy-cmd.github.io/study/static/js/runtime-main.79ccb137.js.map",
+    "static/js/2.e77e04c9.chunk.js": "https://evgeniy-cmd.github.io/study/static/js/2.e77e04c9.chunk.js",
+    "static/js/2.e77e04c9.chunk.js.map": "https://evgeniy-cmd.github.io/study/static/js/2.e77e04c9.chunk.js.map",
+    "static/js/3.4a5fc2b4.chunk.js": "https://evgeniy-cmd.github.io/study/static/js/3.4a5fc2b4.chunk.js",
+    "static/js/3.4a5fc2b4.chunk.js.map": "https://evgeniy-cmd.github.io/study/static/js/3.4a5fc2b4.chunk.js.map",
+    "index.html": "https://evgeniy-cmd.github.io/study/index.html",
+    "static/css/main.6f1a3142.chunk.css.map": "https://evgeniy-cmd.github.io/study/static/css/main.6f1a3142.chunk.css.map",
+    "static/js/2.e77e04c9.chunk.js.LICENSE.txt": "https://evgeniy-cmd.github.io/study/static/js/2.e77e04c9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.3db2a395.js",
+    "static/js/runtime-main.79ccb137.js",
     "static/js/2.e77e04c9.chunk.js",
     "static/css/main.6f1a3142.chunk.css",
-    "static/js/main.ec9ab19e.chunk.js"
+    "static/js/main.c0dc5ac6.chunk.js"
   ]
 }
