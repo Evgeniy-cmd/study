@@ -7,11 +7,10 @@ import Pagination from './component/Pagination'
 import { deleteTask, getTask, newTask, doneTask } from './tasksAPI'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
-import { HashRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
+import { Switch, Route, useHistory } from 'react-router-dom'
 import SignIn from './component/SignIn'
 import SignUp from './component/SignUp'
 import Button from '@material-ui/core/Button'
-import { tokenControl } from './token'
 
 
 const querystring = require('querystring')
@@ -152,15 +151,7 @@ export default function App() {
     setErrMessage(errMessage > 0)
   }
 
-  return (
-    <Route
-    //  exact path='/' 
-    // render={() => {
-    //   return(
-    //     (localStorage.getItem('token') !== null) ? history.push('/app') : history.push('/auth')
-    //   )
-    // }}
-    >
+  return (    
       <Switch>
         <Route path='/reg' component={SignUp}>
           <SignUp />
@@ -212,7 +203,6 @@ export default function App() {
           </Snackbar>
         </div>
       </Route>
-      </Switch>
-    </Route >
+      </Switch>    
   )
 }
