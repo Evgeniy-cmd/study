@@ -7,7 +7,7 @@ import Pagination from './component/Pagination'
 import { deleteTask, getTask, newTask, doneTask } from './tasksAPI'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
-import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
 import SignIn from './component/SignIn'
 import SignUp from './component/SignUp'
 import Button from '@material-ui/core/Button'
@@ -151,7 +151,7 @@ export default function App() {
   }
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router basename='/'>
       <Switch>
         <Route path='/study/reg' >
           <SignUp />
@@ -167,7 +167,7 @@ export default function App() {
               <Button variant="contained" color="primary" href="#contained-buttons"
                 onClick={() => {
                   localStorage.removeItem('token')
-                  history.push('/study/auth')
+                  history.push('study/auth')
                 }
                 }>
                 Log Out
