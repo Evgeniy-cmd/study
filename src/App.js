@@ -7,7 +7,7 @@ import Pagination from './component/Pagination'
 import { deleteTask, getTask, newTask, doneTask } from './tasksAPI'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
-import { HashRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
 import SignIn from './component/SignIn'
 import SignUp from './component/SignUp'
 import Button from '@material-ui/core/Button'
@@ -105,7 +105,7 @@ export default function App() {
   }
 
   async function filtersForDate(valueDate) {
-
+    history={history}
     setFilterDate(valueDate)
     const response = await getTask(querystring.stringify({
       page: page,
@@ -151,17 +151,17 @@ export default function App() {
   }
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
-        <Route path='/study/reg'>
+        <Route path='/study/reg' >
           <SignUp />
         </Route>
 
-        <Route path='/study/auth'>
+        <Route path='/study/auth' >
           <SignIn />
         </Route>
 
-        <Route path='/study/app'>
+        <Route path='/study/app' >
           <div>
             <Box display='flex' justifyContent='flex-end' margin={4}>
               <Button variant="contained" color="primary" href="#contained-buttons"
