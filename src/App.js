@@ -11,6 +11,7 @@ import { HashRouter as Router, Switch, Route, useHistory } from 'react-router-do
 import SignIn from './component/SignIn'
 import SignUp from './component/SignUp'
 import Button from '@material-ui/core/Button'
+import { tokenControl } from './token'
 
 
 const querystring = require('querystring')
@@ -152,20 +153,24 @@ export default function App() {
   }
 
   return (
-    <Router >
+    <Route
+    //  exact path='/' 
+    // render={() => {
+    //   return(
+    //     (localStorage.getItem('token') !== null) ? history.push('/app') : history.push('/auth')
+    //   )
+    // }}
+    >
       <Switch>
         <Route path='/reg' component={SignUp}>
           <SignUp />
         </Route>
 
-        <Route exact
-          path="/"
-          component={SignIn} 
-          >
+        <Route exact path="/" component={SignIn}>
           <SignIn />
         </Route>
 
-      <Route path='/app' component={App} >
+      <Route path='/app' component={App}>
         <div>
           <Box display='flex' justifyContent='flex-end' margin={4}>
             <Button variant="contained" color="primary"
@@ -208,6 +213,6 @@ export default function App() {
         </div>
       </Route>
       </Switch>
-    </Router >
+    </Route >
   )
 }
