@@ -158,7 +158,7 @@ export default function SignUp() {
             <Grid item>
               <Link
                 onClick={() => {
-                  history.push('/auth')
+                  history.push('/')
                 }}
                 variant="body2">
                 Already have an account? Sign in

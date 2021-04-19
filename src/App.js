@@ -12,6 +12,7 @@ import SignIn from './component/SignIn'
 import SignUp from './component/SignUp'
 import Button from '@material-ui/core/Button'
 
+
 const querystring = require('querystring')
 
 export default function App() {
@@ -103,9 +104,9 @@ export default function App() {
     setTodos(response.data.rows)
     setCountTodos(Math.ceil(response.data.count / 5))
   }
-  
+
   async function filtersForDate(valueDate) {
-    history={history}
+    history = { history }
     setFilterDate(valueDate)
     const response = await getTask(querystring.stringify({
       page: page,
@@ -151,59 +152,62 @@ export default function App() {
   }
 
   return (
-    <Router basename='/' >
+    <Router >
       <Switch>
-        <Route path='/reg' >
+        <Route path='/reg' component={SignUp}>
           <SignUp />
         </Route>
 
-        <Route path='/auth' >
+        <Route exact
+          path="/"
+          component={SignIn} 
+          >
           <SignIn />
         </Route>
 
-        <Route path='/app' >
-          <div>
-            <Box display='flex' justifyContent='flex-end' margin={4}>
-              <Button variant="contained" color="primary" 
-                onClick={() => {
-                  localStorage.removeItem('token')
-                  history.push('/auth')
-                }
-                }>
-                Log Out
+      <Route path='/app' component={App} >
+        <div>
+          <Box display='flex' justifyContent='flex-end' margin={4}>
+            <Button variant="contained" color="primary"
+              onClick={() => {
+                localStorage.removeItem('token')
+                history.push('/')
+              }
+              }>
+              Log Out
         </Button>
-            </Box>
-            <Box display='flex' justifyContent='center' m={1} p={10}>
-              <h1>My ToDo List</h1>
-            </Box>
-            <Header
-              addTodo={addNewTodo}
-              setErrMessage={setErrMessage} />
-            <Filter
-              filters={filters}
-              filtersForDate={filtersForDate} />
-            <ListTodo
-              todos={todos}
-              deleteTodo={deleteTodo}
-              doneTodo={doneTodo}
-              changeTaskName={changeTaskName}
-            />
-            <Pagination
-              handlerChange={handlerChange}
-              countTodos={countTodos} />
-            <Snackbar
-              open={errMessage.length > 0}
-              autoHideDuration={2000}
+          </Box>
+          <Box display='flex' justifyContent='center' m={1} p={10}>
+            <h1>My ToDo List</h1>
+          </Box>
+          <Header
+            addTodo={addNewTodo}
+            setErrMessage={setErrMessage} />
+          <Filter
+            filters={filters}
+            filtersForDate={filtersForDate} />
+          <ListTodo
+            todos={todos}
+            deleteTodo={deleteTodo}
+            doneTodo={doneTodo}
+            changeTaskName={changeTaskName}
+          />
+          <Pagination
+            handlerChange={handlerChange}
+            countTodos={countTodos} />
+          <Snackbar
+            open={errMessage.length > 0}
+            autoHideDuration={2000}
+            onClose={handleClose}>
+            <Alert
+              severity="error"
               onClose={handleClose}>
-              <Alert
-                severity="error"
-                onClose={handleClose}>
-                {errMessage}
-              </Alert>
-            </Snackbar>
-          </div>
-        </Route>
+              {errMessage}
+            </Alert>
+          </Snackbar>
+        </div>
+      </Route>
       </Switch>
-    </Router>
+    </Router >
   )
 }
